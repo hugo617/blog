@@ -743,20 +743,14 @@ body {
 
 .btn-secondary {
     padding: var(--space-2) var(--space-4);
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: var(--accent-gradient);
+    color: white;
     border-radius: 8px;
-    color: var(--text-primary);
     text-decoration: none;
+    font-weight: 600;
     transition: all var(--anim-normal) ease;
-    font-weight: 500;
     font-size: var(--font-size-sm);
-    background: white;
-}
-
-.dark .btn-secondary {
-    border: 1px solid var(--border-color);
-    background: var(--bg-card);
-    color: var(--text-primary);
+    border: none;
 }
 
 .btn-primary {
@@ -771,19 +765,7 @@ body {
     border: none;
 }
 
-.btn-secondary:hover {
-    background: rgba(0, 0, 0, 0.05);
-    border-color: var(--accent-primary);
-    color: var(--accent-primary);
-    transform: translateY(-1px);
-}
-
-.dark .btn-secondary:hover {
-    background: var(--bg-secondary);
-    border-color: var(--accent-primary);
-    color: var(--accent-primary);
-}
-
+.btn-secondary:hover,
 .btn-primary:hover {
     transform: translateY(-1px);
     box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
@@ -791,24 +773,214 @@ body {
 
 /* ===== LOTTIEFILES 风格搜索栏 - LOTTIEFILES STYLE SEARCH ===== */
 
-/* 搜索模态背景 - Search Modal Overlay */
-.search-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(8px);
-    z-index: 9999;
-    opacity: 0;
-    visibility: hidden;
+/* 内联搜索框容器 - Inline Search Container */
+.search-container-inline {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: var(--space-2) var(--space-3);
+    min-width: 300px;
     transition: all var(--anim-normal) ease;
 }
 
-.search-modal.active {
+.search-container-inline:hover {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.search-container-inline.focused {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+/* 搜索图标 - Search Icon */
+.search-icon-inline {
+    color: var(--text-muted);
+    margin-right: var(--space-2);
+    flex-shrink: 0;
+}
+
+/* 搜索输入框 - Search Input */
+.search-input-inline {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: var(--font-size-sm);
+    color: var(--text-primary);
+    font-weight: 400;
+}
+
+.search-input-inline::placeholder {
+    color: var(--text-muted);
+}
+
+/* 搜索过滤器 - Search Filter */
+.search-filter {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    margin-left: var(--space-2);
+    padding: var(--space-1) var(--space-2);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-secondary);
+    font-size: var(--font-size-xs);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--anim-normal) ease;
+    white-space: nowrap;
+}
+
+.search-filter:hover {
+    background: var(--bg-primary);
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+}
+
+.search-filter-arrow {
+    transition: transform var(--anim-normal) ease;
+    opacity: 0.6;
+}
+
+.search-filter.active .search-filter-arrow {
+    transform: rotate(180deg);
+    opacity: 1;
+}
+
+/* 搜索下拉菜单 - Search Dropdown */
+.search-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: var(--space-2);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all var(--anim-normal) var(--ease-out-quart);
+    z-index: 100;
+    overflow: hidden;
+}
+
+.search-container-inline.active .search-dropdown {
     opacity: 1;
     visibility: visible;
+    transform: translateY(0);
+}
+
+/* 搜索建议内容 - Search Suggestions Content */
+.search-suggestions {
+    padding: var(--space-4);
+}
+
+.search-section-inline {
+    margin-bottom: var(--space-4);
+}
+
+.search-section-inline:last-child {
+    margin-bottom: 0;
+}
+
+.search-section-title-inline {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--space-3);
+}
+
+/* 趋势标签 - Trending Tags */
+.trending-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+}
+
+.trending-tag {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-2) var(--space-3);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: var(--font-size-xs);
+    font-weight: 500;
+    transition: all var(--anim-normal) ease;
+}
+
+.trending-tag:hover {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+    transform: translateY(-1px);
+}
+
+.trending-tag-icon {
+    font-size: 12px;
+}
+
+/* 高级分类 - Premium Categories */
+.premium-categories {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+}
+
+.premium-category {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: all var(--anim-normal) ease;
+}
+
+.premium-category:hover {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: var(--accent-primary);
+    transform: translateY(-1px);
+}
+
+.premium-category-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: var(--accent-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.premium-category-content {
+    flex: 1;
+}
+
+.premium-category-title {
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    margin-bottom: 2px;
+}
+
+.premium-category-desc {
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
 }
 
 /* 搜索容器 - Search Container */
@@ -997,154 +1169,114 @@ body {
 /* ===== LOTTIEFILES 风格语言选择器 - LOTTIEFILES STYLE LANGUAGE SELECTOR ===== */
 
 /* 语言选择器容器 - Language Selector Container */
-.language-selector {
+.language-selector-lottie {
     position: relative;
 }
 
-.language-trigger {
+.language-trigger-lottie {
     display: flex;
     align-items: center;
-    gap: var(--space-1);
+    gap: var(--space-2);
     padding: var(--space-2) var(--space-3);
     background: var(--bg-card);
     border: 1px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 12px;
     color: var(--text-secondary);
     font-size: var(--font-size-sm);
     font-weight: 500;
     cursor: pointer;
     transition: all var(--anim-normal) ease;
-    min-width: 80px;
+    min-width: 100px;
 }
 
-.language-trigger:hover {
+.language-trigger-lottie:hover {
     background: var(--bg-secondary);
     border-color: var(--accent-primary);
     color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
-.language-flag {
-    width: 20px;
-    height: 15px;
-    border-radius: 2px;
-    background: var(--accent-gradient);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
+.language-icon-lottie {
+    font-size: 16px;
     flex-shrink: 0;
 }
 
-.language-code {
-    text-transform: uppercase;
+.language-code-lottie {
+    font-weight: 500;
     letter-spacing: 0.02em;
 }
 
-.language-arrow {
+.language-arrow-lottie {
     transition: transform var(--anim-normal) ease;
     opacity: 0.6;
+    margin-left: auto;
 }
 
-.language-selector.active .language-arrow {
+.language-selector-lottie.active .language-arrow-lottie {
     transform: rotate(180deg);
     opacity: 1;
 }
 
 /* 语言下拉菜单 - Language Dropdown */
-.language-dropdown {
+.language-dropdown-lottie {
     position: absolute;
     top: 100%;
     right: 0;
     margin-top: var(--space-2);
     background: var(--bg-card);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
+    border-radius: 16px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     opacity: 0;
     visibility: hidden;
     transform: translateY(-10px);
     transition: all var(--anim-normal) var(--ease-out-quart);
     z-index: 100;
-    min-width: 200px;
+    min-width: 180px;
     overflow: hidden;
 }
 
-.language-selector.active .language-dropdown {
+.language-selector-lottie.active .language-dropdown-lottie {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
 }
 
-.language-dropdown-header {
-    padding: var(--space-4) var(--space-4) var(--space-2);
-    border-bottom: 1px solid var(--border-color);
+.language-options-lottie {
+    padding: var(--space-3) 0;
 }
 
-.language-dropdown-title {
-    font-size: var(--font-size-xs);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--text-muted);
-    margin: 0;
-}
-
-.language-options {
-    padding: var(--space-2) 0;
-}
-
-.language-option {
+.language-option-lottie {
     display: flex;
     align-items: center;
-    gap: var(--space-3);
-    padding: var(--space-3) var(--space-4);
+    justify-content: space-between;
+    padding: var(--space-2) var(--space-4);
     text-decoration: none;
     color: var(--text-primary);
     transition: all var(--anim-normal) ease;
     cursor: pointer;
-}
-
-.language-option:hover {
-    background: rgba(99, 102, 241, 0.1);
-    color: var(--accent-primary);
-}
-
-.language-option.active {
-    background: rgba(99, 102, 241, 0.1);
-    color: var(--accent-primary);
-}
-
-.language-option.active::after {
-    content: '✓';
-    margin-left: auto;
-    font-weight: 600;
-}
-
-.language-option-flag {
-    width: 24px;
-    height: 18px;
-    border-radius: 3px;
-    background: var(--accent-gradient);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    flex-shrink: 0;
-}
-
-.language-option-content {
-    flex: 1;
-}
-
-.language-option-name {
-    font-weight: 500;
     font-size: var(--font-size-sm);
-    margin-bottom: 2px;
+    font-weight: 400;
 }
 
-.language-option-native {
-    font-size: var(--font-size-xs);
-    color: var(--text-muted);
+.language-option-lottie:hover {
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--accent-primary);
+}
+
+.language-option-lottie.active {
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--accent-primary);
+}
+
+.language-option-lottie.active::after {
+    content: '✓';
+    font-weight: 600;
+    color: var(--accent-primary);
+}
+
+.language-option-text {
+    flex: 1;
 }
 
 /* ===== 响应式导航 - RESPONSIVE NAVIGATION ===== */

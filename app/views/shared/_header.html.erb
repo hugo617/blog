@@ -192,61 +192,113 @@
 
         <!-- 右侧操作区域 - Right Side Actions -->
         <div class="header-actions">
-            <!-- 搜索按钮 - Search Button -->
-            <button class="action-btn search-btn" aria-label="Search" data-search-trigger>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <!-- LottieFiles 风格搜索框 - LottieFiles Style Search Box -->
+            <div class="search-container-inline" data-search-container>
+                <svg class="search-icon-inline" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="11" cy="11" r="8"/>
                     <path d="m21 21-4.35-4.35"/>
                 </svg>
-            </button>
+                <input type="text" class="search-input-inline" placeholder="Search for animations..." data-search-input>
+                <div class="search-filter" data-search-filter>
+                    <span>Free & Premium</span>
+                    <svg class="search-filter-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="m6 9 6 6 6-6"/>
+                    </svg>
+                </div>
 
-            <!-- 主题切换 - Theme Toggle -->
-            <button class="action-btn theme-btn" id="theme-toggle" aria-label="Toggle theme">
-                <span class="theme-icon dark-icon">🌙</span>
-                <span class="theme-icon light-icon">☀️</span>
-            </button>
+                <!-- 搜索下拉建议 - Search Dropdown Suggestions -->
+                <div class="search-dropdown" data-search-dropdown>
+                    <div class="search-suggestions">
+                        <div class="search-section-inline">
+                            <h4 class="search-section-title-inline">Trending</h4>
+                            <div class="trending-tags">
+                                <a href="#" class="trending-tag">
+                                    <span class="trending-tag-icon">📈</span>
+                                    <span>loading</span>
+                                </a>
+                                <a href="#" class="trending-tag">
+                                    <span class="trending-tag-icon">📈</span>
+                                    <span>success</span>
+                                </a>
+                                <a href="#" class="trending-tag">
+                                    <span class="trending-tag-icon">📈</span>
+                                    <span>confetti</span>
+                                </a>
+                                <a href="#" class="trending-tag">
+                                    <span class="trending-tag-icon">📈</span>
+                                    <span>ai</span>
+                                </a>
+                                <a href="#" class="trending-tag">
+                                    <span class="trending-tag-icon">📈</span>
+                                    <span>arrow</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="search-section-inline">
+                            <h4 class="search-section-title-inline">Premium</h4>
+                            <div class="premium-categories">
+                                <a href="#" class="premium-category">
+                                    <div class="premium-category-icon">💳</div>
+                                    <div class="premium-category-content">
+                                        <div class="premium-category-title">Finance</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="premium-category">
+                                    <div class="premium-category-icon">👥</div>
+                                    <div class="premium-category-content">
+                                        <div class="premium-category-title">Icons</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="premium-category">
+                                    <div class="premium-category-icon">🎮</div>
+                                    <div class="premium-category-content">
+                                        <div class="premium-category-title">Gaming</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="premium-category">
+                                    <div class="premium-category-icon">🤝</div>
+                                    <div class="premium-category-content">
+                                        <div class="premium-category-title">Business</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- LottieFiles 风格语言选择器 - LottieFiles Style Language Selector -->
-            <div class="language-selector" data-language-selector>
-                <button class="language-trigger" aria-expanded="false">
-                    <span class="language-flag">🌐</span>
-                    <span class="language-code" data-current-lang>EN</span>
-                    <svg class="language-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <div class="language-selector-lottie" data-language-selector>
+                <button class="language-trigger-lottie" aria-expanded="false">
+                    <span class="language-icon-lottie">🌐</span>
+                    <span class="language-code-lottie" data-current-lang>En</span>
+                    <svg class="language-arrow-lottie" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="m6 9 6 6 6-6"/>
                     </svg>
                 </button>
-                <div class="language-dropdown">
-                    <div class="language-dropdown-header">
-                        <h4 class="language-dropdown-title">Choose Language</h4>
-                    </div>
-                    <div class="language-options">
-                        <a href="?locale=en" class="language-option active" data-lang="en">
-                            <span class="language-option-flag">🇺🇸</span>
-                            <div class="language-option-content">
-                                <div class="language-option-name">English</div>
-                                <div class="language-option-native">English</div>
-                            </div>
+                <div class="language-dropdown-lottie">
+                    <div class="language-options-lottie">
+                        <a href="?locale=en" class="language-option-lottie active" data-lang="en">
+                            <span class="language-option-text">English</span>
                         </a>
-                        <a href="?locale=zh" class="language-option" data-lang="zh">
-                            <span class="language-option-flag">🇨🇳</span>
-                            <div class="language-option-content">
-                                <div class="language-option-name">Chinese</div>
-                                <div class="language-option-native">中文</div>
-                            </div>
+                        <a href="?locale=es" class="language-option-lottie" data-lang="es">
+                            <span class="language-option-text">Español</span>
                         </a>
-                        <a href="?locale=ja" class="language-option" data-lang="ja">
-                            <span class="language-option-flag">🇯🇵</span>
-                            <div class="language-option-content">
-                                <div class="language-option-name">Japanese</div>
-                                <div class="language-option-native">日本語</div>
-                            </div>
+                        <a href="?locale=pt" class="language-option-lottie" data-lang="pt">
+                            <span class="language-option-text">Português</span>
                         </a>
-                        <a href="?locale=ko" class="language-option" data-lang="ko">
-                            <span class="language-option-flag">🇰🇷</span>
-                            <div class="language-option-content">
-                                <div class="language-option-name">Korean</div>
-                                <div class="language-option-native">한국어</div>
-                            </div>
+                        <a href="?locale=ko" class="language-option-lottie" data-lang="ko">
+                            <span class="language-option-text">한국어</span>
+                        </a>
+                        <a href="?locale=ja" class="language-option-lottie" data-lang="ja">
+                            <span class="language-option-text">日本</span>
+                        </a>
+                        <a href="?locale=fr" class="language-option-lottie" data-lang="fr">
+                            <span class="language-option-text">Français</span>
+                        </a>
+                        <a href="?locale=de" class="language-option-lottie" data-lang="de">
+                            <span class="language-option-text">Deutsch</span>
                         </a>
                     </div>
                 </div>
@@ -302,91 +354,4 @@
     </button>
 </header>
 
-<!-- LottieFiles 风格搜索模态 - LottieFiles Style Search Modal -->
-<div class="search-modal" data-search-modal>
-    <div class="search-container">
-        <div class="search-header">
-            <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="11" cy="11" r="8"/>
-                <path d="m21 21-4.35-4.35"/>
-            </svg>
-            <input type="text" class="search-input" placeholder="Search animations, icons, illustrations..." data-search-input>
-            <button class="search-close" data-search-close>ESC</button>
-        </div>
 
-        <div class="search-results" data-search-results>
-            <!-- 搜索建议 - Search Suggestions -->
-            <div class="search-section">
-                <div class="search-section-title">Popular Searches</div>
-                <div class="search-items">
-                    <a href="#" class="search-item">
-                        <div class="search-item-icon">🔥</div>
-                        <div class="search-item-content">
-                            <div class="search-item-title">Loading animations</div>
-                            <div class="search-item-desc">Spinners, progress bars, and loaders</div>
-                        </div>
-                        <span class="search-item-badge">Hot</span>
-                    </a>
-                    <a href="#" class="search-item">
-                        <div class="search-item-icon">💫</div>
-                        <div class="search-item-content">
-                            <div class="search-item-title">UI interactions</div>
-                            <div class="search-item-desc">Buttons, toggles, and micro-interactions</div>
-                        </div>
-                    </a>
-                    <a href="#" class="search-item">
-                        <div class="search-item-icon">🎨</div>
-                        <div class="search-item-content">
-                            <div class="search-item-title">Illustrations</div>
-                            <div class="search-item-desc">Characters, scenes, and graphics</div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <!-- 最近搜索 - Recent Searches -->
-            <div class="search-section">
-                <div class="search-section-title">Recent</div>
-                <div class="search-items">
-                    <a href="#" class="search-item">
-                        <div class="search-item-icon">🕒</div>
-                        <div class="search-item-content">
-                            <div class="search-item-title">Blog posts</div>
-                            <div class="search-item-desc">Latest articles and tutorials</div>
-                        </div>
-                    </a>
-                    <a href="#" class="search-item">
-                        <div class="search-item-icon">📚</div>
-                        <div class="search-item-content">
-                            <div class="search-item-title">Tutorials</div>
-                            <div class="search-item-desc">Step-by-step guides</div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="search-footer">
-            <div class="search-shortcuts">
-                <div class="search-shortcut">
-                    <span class="search-key">↑</span>
-                    <span class="search-key">↓</span>
-                    <span>Navigate</span>
-                </div>
-                <div class="search-shortcut">
-                    <span class="search-key">↵</span>
-                    <span>Select</span>
-                </div>
-                <div class="search-shortcut">
-                    <span class="search-key">ESC</span>
-                    <span>Close</span>
-                </div>
-            </div>
-            <div>
-                <span class="search-key">⌘</span>
-                <span class="search-key">K</span>
-                <span>to search</span>
-            </div>
-        </div>
-    </div>
-</div>

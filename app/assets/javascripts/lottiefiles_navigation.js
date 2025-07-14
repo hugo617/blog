@@ -212,59 +212,73 @@ function updateThemeIcons(theme, darkIcon, lightIcon) {
 
 // 搜索功能初始化 - Search Initialization
 function initializeSearch() {
-    const searchTrigger = document.querySelector('[data-search-trigger]');
-    const searchModal = document.querySelector('[data-search-modal]');
+    const searchContainer = document.querySelector('[data-search-container]');
     const searchInput = document.querySelector('[data-search-input]');
-    const searchClose = document.querySelector('[data-search-close]');
-    const searchResults = document.querySelector('[data-search-results]');
+    const searchFilter = document.querySelector('[data-search-filter]');
+    const searchDropdown = document.querySelector('[data-search-dropdown]');
 
-    if (!searchTrigger || !searchModal) return;
+    if (!searchContainer || !searchInput) return;
 
-    let isSearchOpen = false;
+    let isSearchFocused = false;
+    let isDropdownOpen = false;
 
-    // 打开搜索模态 - Open search modal
-    function openSearch() {
-        isSearchOpen = true;
-        searchModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
+    // 搜索输入框聚焦 - Search input focus
+    function focusSearch() {
+        isSearchFocused = true;
+        searchContainer.classList.add('focused');
+        showSearchDropdown();
+    }
 
-        // 延迟聚焦输入框 - Delayed focus on input
+    // 搜索输入框失焦 - Search input blur
+    function blurSearch() {
+        // 延迟失焦，允许点击下拉菜单
         setTimeout(() => {
-            if (searchInput) {
-                searchInput.focus();
+            if (!isDropdownOpen) {
+                isSearchFocused = false;
+                searchContainer.classList.remove('focused');
+                hideSearchDropdown();
             }
         }, 150);
     }
 
-    // 关闭搜索模态 - Close search modal
-    function closeSearch() {
-        isSearchOpen = false;
-        searchModal.classList.remove('active');
-        document.body.style.overflow = '';
-
-        // 清空搜索输入 - Clear search input
-        if (searchInput) {
-            searchInput.value = '';
-        }
+    // 显示搜索下拉菜单 - Show search dropdown
+    function showSearchDropdown() {
+        isDropdownOpen = true;
+        searchContainer.classList.add('active');
     }
 
-    // 搜索触发器点击 - Search trigger click
-    searchTrigger.addEventListener('click', function(e) {
-        e.preventDefault();
-        openSearch();
-    });
-
-    // 关闭按钮点击 - Close button click
-    if (searchClose) {
-        searchClose.addEventListener('click', closeSearch);
+    // 隐藏搜索下拉菜单 - Hide search dropdown
+    function hideSearchDropdown() {
+        isDropdownOpen = false;
+        searchContainer.classList.remove('active');
     }
 
-    // 模态背景点击关闭 - Click modal background to close
-    searchModal.addEventListener('click', function(e) {
-        if (e.target === searchModal) {
-            closeSearch();
-        }
-    });
+    // 搜索输入框事件 - Search input events
+    searchInput.addEventListener('focus', focusSearch);
+    searchInput.addEventListener('blur', blurSearch);
+
+    // 搜索过滤器点击 - Search filter click
+    if (searchFilter) {
+        searchFilter.addEventListener('click', function(e) {
+            e.preventDefault();
+            searchFilter.classList.toggle('active');
+            // 这里可以实现过滤器下拉菜单
+            console.log('Filter clicked');
+        });
+    }
+
+    // 搜索下拉菜单鼠标事件 - Search dropdown mouse events
+    if (searchDropdown) {
+        searchDropdown.addEventListener('mouseenter', function() {
+            isDropdownOpen = true;
+        });
+
+        searchDropdown.addEventListener('mouseleave', function() {
+            if (!isSearchFocused) {
+                hideSearchDropdown();
+            }
+        });
+    }
 
     // 搜索输入处理 - Search input handling
     if (searchInput) {
@@ -281,27 +295,23 @@ function initializeSearch() {
 
     // 键盘快捷键支持 - Keyboard shortcut support
     document.addEventListener('keydown', function(e) {
-        // Ctrl/Cmd + K 打开搜索 - Ctrl/Cmd + K to open search
+        // Ctrl/Cmd + K 聚焦搜索 - Ctrl/Cmd + K to focus search
         if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
             e.preventDefault();
-            openSearch();
+            searchInput.focus();
         }
 
-        // ESC 关闭搜索 - ESC to close search
-        if (e.key === 'Escape' && isSearchOpen) {
-            closeSearch();
+        // ESC 关闭搜索下拉 - ESC to close search dropdown
+        if (e.key === 'Escape' && isDropdownOpen) {
+            hideSearchDropdown();
+            searchInput.blur();
         }
+    });
 
-        // 搜索结果导航 - Search results navigation
-        if (isSearchOpen && (e.key === 'ArrowUp' || e.key === 'ArrowDown')) {
-            e.preventDefault();
-            navigateSearchResults(e.key === 'ArrowDown' ? 1 : -1);
-        }
-
-        // Enter 选择搜索结果 - Enter to select search result
-        if (isSearchOpen && e.key === 'Enter') {
-            e.preventDefault();
-            selectCurrentSearchResult();
+    // 点击外部关闭 - Click outside to close
+    document.addEventListener('click', function(e) {
+        if (!searchContainer.contains(e.target)) {
+            hideSearchDropdown();
         }
     });
 
@@ -424,10 +434,10 @@ function initializeLanguageSelector() {
 
     if (!languageSelector) return;
 
-    const trigger = languageSelector.querySelector('.language-trigger');
-    const dropdown = languageSelector.querySelector('.language-dropdown');
+    const trigger = languageSelector.querySelector('.language-trigger-lottie');
+    const dropdown = languageSelector.querySelector('.language-dropdown-lottie');
     const currentLang = languageSelector.querySelector('[data-current-lang]');
-    const options = languageSelector.querySelectorAll('.language-option');
+    const options = languageSelector.querySelectorAll('.language-option-lottie');
 
     let isOpen = false;
     let hoverTimeout;
