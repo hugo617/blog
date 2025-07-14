@@ -315,17 +315,201 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="lottie-header">
+    <!-- LottieFiles Style Header -->
+    <header class="lottiefiles-header">
         <div class="header-content">
-            <div class="logo">
-                <span class="logo-icon">⚡</span>
-                <span>AURORA</span>
+            <!-- Logo -->
+            <div class="logo-container">
+                <div class="logo">
+                    <span class="logo-icon">⚡</span>
+                    <span class="logo-text">AURORA</span>
+                </div>
             </div>
-            
-            <button class="theme-btn" id="theme-toggle">
-                <span id="theme-icon">🌙</span>
-            </button>
+
+            <!-- Main Navigation -->
+            <nav class="main-navigation">
+                <!-- Discover Dropdown -->
+                <div class="nav-item dropdown-nav" data-dropdown="discover">
+                    <button class="nav-trigger" aria-expanded="false">
+                        <span>Discover</span>
+                        <svg class="nav-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="m6 9 6 6 6-6"/>
+                        </svg>
+                    </button>
+                    <div class="nav-dropdown" data-dropdown-menu="discover">
+                        <div class="dropdown-content">
+                            <div class="dropdown-section">
+                                <h4 class="dropdown-title">Browse</h4>
+                                <div class="dropdown-links">
+                                    <a href="#" class="dropdown-link">
+                                        <div class="link-content">
+                                            <span class="link-title">Animations</span>
+                                            <span class="link-desc">Explore creative posts</span>
+                                        </div>
+                                        <span class="link-badge">Free</span>
+                                    </a>
+                                    <a href="#" class="dropdown-link">
+                                        <div class="link-content">
+                                            <span class="link-title">Featured</span>
+                                            <span class="link-desc">Curated collections</span>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="dropdown-link">
+                                        <div class="link-content">
+                                            <span class="link-title">Trending</span>
+                                            <span class="link-desc">Popular content</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="dropdown-section">
+                                <h4 class="dropdown-title">Categories</h4>
+                                <div class="dropdown-links">
+                                    <a href="#" class="dropdown-link">
+                                        <div class="link-content">
+                                            <span class="link-title">UI/UX</span>
+                                            <span class="link-desc">Interface animations</span>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="dropdown-link">
+                                        <div class="link-content">
+                                            <span class="link-title">Icons</span>
+                                            <span class="link-desc">Animated icons</span>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="dropdown-link">
+                                        <div class="link-content">
+                                            <span class="link-title">Illustrations</span>
+                                            <span class="link-desc">Motion graphics</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Create Dropdown -->
+                <div class="nav-item dropdown-nav" data-dropdown="create">
+                    <button class="nav-trigger" aria-expanded="false">
+                        <span>Create</span>
+                        <svg class="nav-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="m6 9 6 6 6-6"/>
+                        </svg>
+                    </button>
+                    <div class="nav-dropdown" data-dropdown-menu="create">
+                        <div class="dropdown-content">
+                            <div class="dropdown-section">
+                                <h4 class="dropdown-title">Tools</h4>
+                                <div class="dropdown-links">
+                                    <a href="#" class="dropdown-link">
+                                        <div class="link-content">
+                                            <span class="link-title">Animation Editor</span>
+                                            <span class="link-desc">Create animations</span>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="dropdown-link">
+                                        <div class="link-content">
+                                            <span class="link-title">File Converter</span>
+                                            <span class="link-desc">Convert formats</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="dropdown-section">
+                                <h4 class="dropdown-title">Resources</h4>
+                                <div class="dropdown-links">
+                                    <a href="#" class="dropdown-link">
+                                        <div class="link-content">
+                                            <span class="link-title">Templates</span>
+                                            <span class="link-desc">Ready-to-use designs</span>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="dropdown-link">
+                                        <div class="link-content">
+                                            <span class="link-title">Plugins</span>
+                                            <span class="link-desc">Design tool integrations</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Learn Dropdown -->
+                <div class="nav-item dropdown-nav" data-dropdown="learn">
+                    <button class="nav-trigger" aria-expanded="false">
+                        <span>Learn</span>
+                        <svg class="nav-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="m6 9 6 6 6-6"/>
+                        </svg>
+                    </button>
+                    <div class="nav-dropdown" data-dropdown-menu="learn">
+                        <div class="dropdown-content">
+                            <div class="dropdown-section">
+                                <h4 class="dropdown-title">Education</h4>
+                                <div class="dropdown-links">
+                                    <a href="#" class="dropdown-link">
+                                        <div class="link-content">
+                                            <span class="link-title">Blog</span>
+                                            <span class="link-desc">Latest articles & tips</span>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="dropdown-link">
+                                        <div class="link-content">
+                                            <span class="link-title">Tutorials</span>
+                                            <span class="link-desc">Step-by-step guides</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="dropdown-section">
+                                <h4 class="dropdown-title">Community</h4>
+                                <div class="dropdown-links">
+                                    <a href="#" class="dropdown-link">
+                                        <div class="link-content">
+                                            <span class="link-title">About</span>
+                                            <span class="link-desc">Our story & mission</span>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="dropdown-link">
+                                        <div class="link-content">
+                                            <span class="link-title">Contact</span>
+                                            <span class="link-desc">Get in touch</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pricing Link -->
+                <div class="nav-item">
+                    <a href="#" class="nav-link">Pricing</a>
+                </div>
+            </nav>
+
+            <!-- Header Actions -->
+            <div class="header-actions">
+                <button class="action-btn search-btn" aria-label="Search">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="m21 21-4.35-4.35"/>
+                    </svg>
+                </button>
+
+                <button class="action-btn theme-btn" id="theme-toggle" aria-label="Toggle theme">
+                    <span class="theme-icon dark-icon">🌙</span>
+                    <span class="theme-icon light-icon">☀️</span>
+                </button>
+
+                <div class="auth-buttons">
+                    <a href="#" class="btn-secondary">Sign In</a>
+                    <a href="#" class="btn-primary">Sign Up</a>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -357,23 +541,167 @@
         // Initialize the application
         document.addEventListener('DOMContentLoaded', function() {
             console.log('AURORA Blog Test Page loaded');
-            
+
+            // Initialize navigation
+            initializeNavigation();
+
             // Initialize theme
             initializeTheme();
-            
+
             // Initialize animations
             initializeAnimations();
+
+            // Initialize search
+            initializeSearch();
         });
+
+        // Navigation initialization
+        function initializeNavigation() {
+            const dropdownNavs = document.querySelectorAll('.dropdown-nav');
+
+            dropdownNavs.forEach(nav => {
+                const trigger = nav.querySelector('.nav-trigger');
+                const dropdown = nav.querySelector('.nav-dropdown');
+                const arrow = nav.querySelector('.nav-arrow');
+
+                if (!trigger || !dropdown) return;
+
+                let hoverTimeout;
+
+                // Mouse enter trigger
+                trigger.addEventListener('mouseenter', function() {
+                    clearTimeout(hoverTimeout);
+                    openDropdown(nav, trigger, dropdown, arrow);
+                });
+
+                // Mouse enter dropdown
+                dropdown.addEventListener('mouseenter', function() {
+                    clearTimeout(hoverTimeout);
+                });
+
+                // Mouse leave nav item
+                nav.addEventListener('mouseleave', function() {
+                    hoverTimeout = setTimeout(() => {
+                        closeDropdown(nav, trigger, dropdown, arrow);
+                    }, 150);
+                });
+
+                // Click outside to close
+                document.addEventListener('click', function(e) {
+                    if (!nav.contains(e.target)) {
+                        closeDropdown(nav, trigger, dropdown, arrow);
+                    }
+                });
+            });
+        }
+
+        function openDropdown(nav, trigger, dropdown, arrow) {
+            // Close other dropdowns
+            document.querySelectorAll('.dropdown-nav.active').forEach(otherNav => {
+                if (otherNav !== nav) {
+                    const otherTrigger = otherNav.querySelector('.nav-trigger');
+                    const otherDropdown = otherNav.querySelector('.nav-dropdown');
+                    const otherArrow = otherNav.querySelector('.nav-arrow');
+                    closeDropdown(otherNav, otherTrigger, otherDropdown, otherArrow);
+                }
+            });
+
+            // Open current dropdown
+            nav.classList.add('active');
+            trigger.setAttribute('aria-expanded', 'true');
+
+            // Arrow animation
+            if (arrow) {
+                arrow.style.transform = 'rotate(180deg)';
+                arrow.style.opacity = '1';
+            }
+
+            // Dropdown animation
+            dropdown.style.opacity = '0';
+            dropdown.style.visibility = 'visible';
+            dropdown.style.transform = 'translateX(-50%) translateY(-10px)';
+
+            requestAnimationFrame(() => {
+                dropdown.style.opacity = '1';
+                dropdown.style.transform = 'translateX(-50%) translateY(0)';
+            });
+        }
+
+        function closeDropdown(nav, trigger, dropdown, arrow) {
+            nav.classList.remove('active');
+            trigger.setAttribute('aria-expanded', 'false');
+
+            // Arrow animation
+            if (arrow) {
+                arrow.style.transform = 'rotate(0deg)';
+                arrow.style.opacity = '0.6';
+            }
+
+            // Dropdown animation
+            dropdown.style.opacity = '0';
+            dropdown.style.transform = 'translateX(-50%) translateY(-10px)';
+
+            setTimeout(() => {
+                if (!nav.classList.contains('active')) {
+                    dropdown.style.visibility = 'hidden';
+                }
+            }, 300);
+        }
 
         function initializeTheme() {
             const themeToggle = document.getElementById('theme-toggle');
-            const themeIcon = document.getElementById('theme-icon');
-            
+            const darkIcon = themeToggle?.querySelector('.dark-icon');
+            const lightIcon = themeToggle?.querySelector('.light-icon');
+
+            // Initialize theme
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.classList.toggle('dark', savedTheme === 'dark');
+            updateThemeIcons(savedTheme, darkIcon, lightIcon);
+
             themeToggle.addEventListener('click', function() {
                 const isDark = document.documentElement.classList.contains('dark');
-                document.documentElement.classList.toggle('dark', !isDark);
-                themeIcon.textContent = isDark ? '🌙' : '☀️';
-                localStorage.setItem('theme', isDark ? 'light' : 'dark');
+                const newTheme = isDark ? 'light' : 'dark';
+
+                document.documentElement.classList.toggle('dark', newTheme === 'dark');
+                localStorage.setItem('theme', newTheme);
+                updateThemeIcons(newTheme, darkIcon, lightIcon);
+            });
+        }
+
+        function updateThemeIcons(theme, darkIcon, lightIcon) {
+            if (!darkIcon || !lightIcon) return;
+
+            if (theme === 'dark') {
+                darkIcon.style.opacity = '1';
+                darkIcon.style.transform = 'translate(-50%, -50%) rotate(0deg)';
+                lightIcon.style.opacity = '0';
+                lightIcon.style.transform = 'translate(-50%, -50%) rotate(-180deg)';
+            } else {
+                lightIcon.style.opacity = '1';
+                lightIcon.style.transform = 'translate(-50%, -50%) rotate(0deg)';
+                darkIcon.style.opacity = '0';
+                darkIcon.style.transform = 'translate(-50%, -50%) rotate(180deg)';
+            }
+        }
+
+        function initializeSearch() {
+            const searchBtn = document.querySelector('.search-btn');
+
+            if (searchBtn) {
+                searchBtn.addEventListener('click', function() {
+                    const searchQuery = prompt('🔍 Search for posts, animations, or tutorials...');
+                    if (searchQuery && searchQuery.trim()) {
+                        alert(`Searching for: "${searchQuery}"\n\nThis would normally open a search results page.`);
+                    }
+                });
+            }
+
+            // Keyboard shortcut: Ctrl/Cmd + K
+            document.addEventListener('keydown', function(e) {
+                if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                    e.preventDefault();
+                    searchBtn?.click();
+                }
             });
         }
 

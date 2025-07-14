@@ -1,6 +1,7 @@
 <!-- LottieFiles 风格头部 - LottieFiles Style Header -->
-<header class="header lottie-header" id="header">
+<header class="header lottiefiles-header" id="header">
     <div class="header-content">
+        <!-- Logo -->
         <div class="logo-container">
             <div class="logo">
                 <span class="logo-icon">⚡</span>
@@ -8,73 +9,238 @@
             </div>
         </div>
 
-        <!-- LottieFiles 风格导航 - LottieFiles Style Navigation -->
-        <nav class="top-nav lottie-nav" id="top-nav" role="navigation" aria-label="Primary navigation">
-            <div class="nav-section">
-                <span class="nav-label">Discover</span>
-                <div class="nav-links">
-                    <%= link_to "#home", class: "nav-link active", data: { page: "home" } do %>
-                        <span><%= t('navigation.home') %></span>
-                    <% end %>
-                    <%= link_to posts_path, class: "nav-link", data: { page: "work" } do %>
-                        <span><%= t('navigation.work') %></span>
-                        <span class="nav-badge">Free</span>
-                    <% end %>
-                    <%= link_to "#journal", class: "nav-link", data: { page: "journal" } do %>
-                        <%= t('navigation.journal') %>
-                    <% end %>
+        <!-- LottieFiles 风格主导航 - LottieFiles Style Main Navigation -->
+        <nav class="main-navigation" role="navigation" aria-label="Primary navigation">
+            <!-- Discover 下拉菜单 - Discover Dropdown -->
+            <div class="nav-item dropdown-nav" data-dropdown="discover">
+                <button class="nav-trigger" aria-expanded="false">
+                    <span>Discover</span>
+                    <svg class="nav-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="m6 9 6 6 6-6"/>
+                    </svg>
+                </button>
+                <div class="nav-dropdown" data-dropdown-menu="discover">
+                    <div class="dropdown-content">
+                        <div class="dropdown-section">
+                            <h4 class="dropdown-title">Browse</h4>
+                            <div class="dropdown-links">
+                                <%= link_to posts_path, class: "dropdown-link" do %>
+                                    <div class="link-content">
+                                        <span class="link-title"><%= t('navigation.work') %></span>
+                                        <span class="link-desc">Explore creative posts</span>
+                                    </div>
+                                    <span class="link-badge">Free</span>
+                                <% end %>
+                                <%= link_to "#featured", class: "dropdown-link" do %>
+                                    <div class="link-content">
+                                        <span class="link-title">Featured</span>
+                                        <span class="link-desc">Curated collections</span>
+                                    </div>
+                                <% end %>
+                                <%= link_to "#trending", class: "dropdown-link" do %>
+                                    <div class="link-content">
+                                        <span class="link-title">Trending</span>
+                                        <span class="link-desc">Popular content</span>
+                                    </div>
+                                <% end %>
+                            </div>
+                        </div>
+                        <div class="dropdown-section">
+                            <h4 class="dropdown-title">Categories</h4>
+                            <div class="dropdown-links">
+                                <%= link_to "#", class: "dropdown-link" do %>
+                                    <div class="link-content">
+                                        <span class="link-title">UI/UX</span>
+                                        <span class="link-desc">Interface animations</span>
+                                    </div>
+                                <% end %>
+                                <%= link_to "#", class: "dropdown-link" do %>
+                                    <div class="link-content">
+                                        <span class="link-title">Icons</span>
+                                        <span class="link-desc">Animated icons</span>
+                                    </div>
+                                <% end %>
+                                <%= link_to "#", class: "dropdown-link" do %>
+                                    <div class="link-content">
+                                        <span class="link-title">Illustrations</span>
+                                        <span class="link-desc">Motion graphics</span>
+                                    </div>
+                                <% end %>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="nav-section">
-                <span class="nav-label">Create</span>
-                <div class="nav-links">
-                    <%= link_to "#about", class: "nav-link", data: { page: "about" } do %>
-                        <%= t('navigation.about') %>
-                    <% end %>
-                    <%= link_to "#contact", class: "nav-link", data: { page: "contact" } do %>
-                        <%= t('navigation.contact') %>
-                    <% end %>
+            <!-- Create 下拉菜单 - Create Dropdown -->
+            <div class="nav-item dropdown-nav" data-dropdown="create">
+                <button class="nav-trigger" aria-expanded="false">
+                    <span>Create</span>
+                    <svg class="nav-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="m6 9 6 6 6-6"/>
+                    </svg>
+                </button>
+                <div class="nav-dropdown" data-dropdown-menu="create">
+                    <div class="dropdown-content">
+                        <div class="dropdown-section">
+                            <h4 class="dropdown-title">Tools</h4>
+                            <div class="dropdown-links">
+                                <% if user_signed_in? %>
+                                    <%= link_to new_post_path, class: "dropdown-link" do %>
+                                        <div class="link-content">
+                                            <span class="link-title"><%= t('navigation.new_post') %></span>
+                                            <span class="link-desc">Write a new article</span>
+                                        </div>
+                                    <% end %>
+                                <% end %>
+                                <%= link_to "#editor", class: "dropdown-link" do %>
+                                    <div class="link-content">
+                                        <span class="link-title">Animation Editor</span>
+                                        <span class="link-desc">Create animations</span>
+                                    </div>
+                                <% end %>
+                                <%= link_to "#converter", class: "dropdown-link" do %>
+                                    <div class="link-content">
+                                        <span class="link-title">File Converter</span>
+                                        <span class="link-desc">Convert formats</span>
+                                    </div>
+                                <% end %>
+                            </div>
+                        </div>
+                        <div class="dropdown-section">
+                            <h4 class="dropdown-title">Resources</h4>
+                            <div class="dropdown-links">
+                                <%= link_to "#templates", class: "dropdown-link" do %>
+                                    <div class="link-content">
+                                        <span class="link-title">Templates</span>
+                                        <span class="link-desc">Ready-to-use designs</span>
+                                    </div>
+                                <% end %>
+                                <%= link_to "#plugins", class: "dropdown-link" do %>
+                                    <div class="link-content">
+                                        <span class="link-title">Plugins</span>
+                                        <span class="link-desc">Design tool integrations</span>
+                                    </div>
+                                <% end %>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="nav-section">
-                <span class="nav-label">Learn</span>
-                <div class="nav-links">
-                    <%= link_to "#blog", class: "nav-link" do %>Blog<% end %>
-                    <%= link_to "#tutorials", class: "nav-link" do %>Tutorials<% end %>
+            <!-- Learn 下拉菜单 - Learn Dropdown -->
+            <div class="nav-item dropdown-nav" data-dropdown="learn">
+                <button class="nav-trigger" aria-expanded="false">
+                    <span>Learn</span>
+                    <svg class="nav-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="m6 9 6 6 6-6"/>
+                    </svg>
+                </button>
+                <div class="nav-dropdown" data-dropdown-menu="learn">
+                    <div class="dropdown-content">
+                        <div class="dropdown-section">
+                            <h4 class="dropdown-title">Education</h4>
+                            <div class="dropdown-links">
+                                <%= link_to "#blog", class: "dropdown-link" do %>
+                                    <div class="link-content">
+                                        <span class="link-title">Blog</span>
+                                        <span class="link-desc">Latest articles & tips</span>
+                                    </div>
+                                <% end %>
+                                <%= link_to "#tutorials", class: "dropdown-link" do %>
+                                    <div class="link-content">
+                                        <span class="link-title">Tutorials</span>
+                                        <span class="link-desc">Step-by-step guides</span>
+                                    </div>
+                                <% end %>
+                                <%= link_to "#webinars", class: "dropdown-link" do %>
+                                    <div class="link-content">
+                                        <span class="link-title">Webinars</span>
+                                        <span class="link-desc">Live learning sessions</span>
+                                    </div>
+                                <% end %>
+                            </div>
+                        </div>
+                        <div class="dropdown-section">
+                            <h4 class="dropdown-title">Community</h4>
+                            <div class="dropdown-links">
+                                <%= link_to "#about", class: "dropdown-link" do %>
+                                    <div class="link-content">
+                                        <span class="link-title"><%= t('navigation.about') %></span>
+                                        <span class="link-desc">Our story & mission</span>
+                                    </div>
+                                <% end %>
+                                <%= link_to "#contact", class: "dropdown-link" do %>
+                                    <div class="link-content">
+                                        <span class="link-title"><%= t('navigation.contact') %></span>
+                                        <span class="link-desc">Get in touch</span>
+                                    </div>
+                                <% end %>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
+
+            <!-- Pricing 单独链接 - Pricing Single Link -->
+            <div class="nav-item">
+                <%= link_to "#pricing", class: "nav-link" do %>
+                    Pricing
+                <% end %>
             </div>
         </nav>
 
+        <!-- 右侧操作区域 - Right Side Actions -->
         <div class="header-actions">
-            <button class="search-btn" data-controller="search" data-action="click->search#toggle">
+            <!-- 搜索按钮 - Search Button -->
+            <button class="action-btn search-btn" aria-label="Search">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="11" cy="11" r="8"/>
                     <path d="m21 21-4.35-4.35"/>
                 </svg>
             </button>
 
-            <div class="theme-toggle" data-controller="theme-toggle">
-                <button data-action="click->theme-toggle#toggle" class="theme-btn">
-                    <span class="theme-icon dark-icon">🌙</span>
-                    <span class="theme-icon light-icon">☀️</span>
-                </button>
-            </div>
-
+            <!-- 主题切换 - Theme Toggle -->
+            <button class="action-btn theme-btn" id="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon dark-icon">🌙</span>
+                <span class="theme-icon light-icon">☀️</span>
+            </button>
 
             <!-- 语言切换器 - Language Switcher -->
             <%= render 'shared/language_switcher' %>
 
+            <!-- 用户认证区域 - User Authentication Area -->
             <% if user_signed_in? %>
-                <div class="user-menu" data-controller="dropdown">
-                    <button data-action="click->dropdown#toggle" class="user-avatar">
+                <div class="user-menu dropdown-nav" data-dropdown="user">
+                    <button class="user-avatar nav-trigger" aria-expanded="false">
                         <%= current_user.display_name.first.upcase %>
                     </button>
-                    <div data-dropdown-target="menu" class="dropdown-menu">
-                        <%= link_to t('navigation.profile'), edit_user_registration_path, class: "dropdown-item" %>
-                        <%= link_to t('navigation.new_post'), new_post_path, class: "dropdown-item" %>
-                        <%= link_to t('navigation.sign_out'), destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+                    <div class="nav-dropdown user-dropdown" data-dropdown-menu="user">
+                        <div class="dropdown-content">
+                            <div class="user-info">
+                                <div class="user-name"><%= current_user.display_name %></div>
+                                <div class="user-email"><%= current_user.email %></div>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-links">
+                                <%= link_to edit_user_registration_path, class: "dropdown-link" do %>
+                                    <div class="link-content">
+                                        <span class="link-title"><%= t('navigation.profile') %></span>
+                                    </div>
+                                <% end %>
+                                <%= link_to new_post_path, class: "dropdown-link" do %>
+                                    <div class="link-content">
+                                        <span class="link-title"><%= t('navigation.new_post') %></span>
+                                    </div>
+                                <% end %>
+                                <div class="dropdown-divider"></div>
+                                <%= link_to destroy_user_session_path, method: :delete, class: "dropdown-link sign-out" do %>
+                                    <div class="link-content">
+                                        <span class="link-title"><%= t('navigation.sign_out') %></span>
+                                    </div>
+                                <% end %>
+                            </div>
+                        </div>
                     </div>
                 </div>
             <% else %>

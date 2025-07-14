@@ -439,13 +439,583 @@ body {
     left: 100%;
 }
 
-/* ===== LOTTIEFILES 风格样式 - LOTTIEFILES STYLE OVERRIDES ===== */
+/* ===== LOTTIEFILES 风格导航 - LOTTIEFILES STYLE NAVIGATION ===== */
 
-/* 更新头部为 LottieFiles 风格 */
-.lottie-header {
-    background: rgba(15, 23, 42, 0.95);
+/* 头部容器 - Header Container */
+.lottiefiles-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    height: 80px;
+    transition: all var(--anim-normal) ease;
+}
+
+.dark .lottiefiles-header {
+    background: rgba(15, 23, 42, 0.95);
     border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+/* 主导航容器 - Main Navigation Container */
+.main-navigation {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+/* 导航项容器 - Navigation Item Container */
+.nav-item {
+    position: relative;
+}
+
+/* 导航触发器 - Navigation Trigger */
+.nav-trigger {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-3) var(--space-4);
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    transition: all var(--anim-normal) ease;
+    position: relative;
+}
+
+.dark .nav-trigger {
+    color: var(--text-secondary);
+}
+
+.nav-trigger:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--text-primary);
+}
+
+.dark .nav-trigger:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
+
+/* 导航箭头动画 - Navigation Arrow Animation */
+.nav-arrow {
+    transition: transform var(--anim-normal) ease;
+    opacity: 0.6;
+}
+
+.nav-trigger[aria-expanded="true"] .nav-arrow {
+    transform: rotate(180deg);
+    opacity: 1;
+}
+
+/* 单独链接样式 - Single Link Style */
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: var(--space-3) var(--space-4);
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: var(--font-size-sm);
+    border-radius: 8px;
+    transition: all var(--anim-normal) ease;
+}
+
+.nav-link:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--text-primary);
+}
+
+.dark .nav-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
+
+/* 下拉菜单容器 - Dropdown Menu Container */
+.nav-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: var(--space-2);
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-50%) translateY(-10px);
+    transition: all var(--anim-normal) var(--ease-out-quart);
+    z-index: 100;
+    min-width: 480px;
+    overflow: hidden;
+}
+
+.dark .nav-dropdown {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* 显示下拉菜单 - Show Dropdown Menu */
+.dropdown-nav:hover .nav-dropdown,
+.dropdown-nav.active .nav-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* 下拉菜单内容 - Dropdown Content */
+.dropdown-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+    padding: var(--space-6);
+}
+
+/* 下拉菜单区块 - Dropdown Section */
+.dropdown-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.dropdown-title {
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin: 0;
+    padding: 0 var(--space-2);
+}
+
+/* 下拉菜单链接容器 - Dropdown Links Container */
+.dropdown-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+/* 下拉菜单链接 - Dropdown Link */
+.dropdown-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-3) var(--space-2);
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all var(--anim-normal) ease;
+    color: var(--text-primary);
+}
+
+.dropdown-link:hover {
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--accent-primary);
+}
+
+/* 链接内容 - Link Content */
+.link-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.link-title {
+    font-weight: 500;
+    font-size: var(--font-size-sm);
+    line-height: 1.4;
+}
+
+.link-desc {
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+    line-height: 1.3;
+}
+
+/* 链接徽章 - Link Badge */
+.link-badge {
+    background: var(--accent-gradient);
+    color: white;
+    font-size: var(--font-size-xs);
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+/* 用户下拉菜单特殊样式 - User Dropdown Special Styles */
+.user-dropdown {
+    min-width: 280px;
+    right: 0;
+    left: auto;
+    transform: translateX(0);
+}
+
+.user-dropdown.nav-dropdown {
+    transform: translateY(-10px);
+}
+
+.dropdown-nav:hover .user-dropdown,
+.dropdown-nav.active .user-dropdown {
+    transform: translateY(0);
+}
+
+.user-info {
+    padding: var(--space-4) var(--space-2);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.dark .user-info {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.user-name {
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    color: var(--text-primary);
+    margin-bottom: 2px;
+}
+
+.user-email {
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+}
+
+.dropdown-divider {
+    height: 1px;
+    background: rgba(0, 0, 0, 0.08);
+    margin: var(--space-2) 0;
+}
+
+.dark .dropdown-divider {
+    background: var(--border-color);
+}
+
+.dropdown-link.sign-out:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+}
+
+/* 操作按钮区域 - Action Buttons Area */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.action-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: white;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--anim-normal) ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.dark .action-btn {
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    color: var(--text-secondary);
+}
+
+.action-btn:hover {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+    transform: translateY(-1px);
+}
+
+.dark .action-btn:hover {
+    background: var(--bg-secondary);
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+}
+
+/* 用户头像 - User Avatar */
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent-gradient);
+    color: white;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    transition: all var(--anim-normal) ease;
+    font-size: var(--font-size-sm);
+}
+
+.user-avatar:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+}
+
+/* 认证按钮 - Auth Buttons */
+.auth-buttons {
+    display: flex;
+    gap: var(--space-2);
+}
+
+.btn-secondary {
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: all var(--anim-normal) ease;
+    font-weight: 500;
+    font-size: var(--font-size-sm);
+    background: white;
+}
+
+.dark .btn-secondary {
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    color: var(--text-primary);
+}
+
+.btn-primary {
+    padding: var(--space-2) var(--space-4);
+    background: var(--accent-gradient);
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all var(--anim-normal) ease;
+    font-size: var(--font-size-sm);
+    border: none;
+}
+
+.btn-secondary:hover {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+    transform: translateY(-1px);
+}
+
+.dark .btn-secondary:hover {
+    background: var(--bg-secondary);
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+}
+
+/* ===== 响应式导航 - RESPONSIVE NAVIGATION ===== */
+
+/* 平板端适配 - Tablet Adaptation */
+@media (max-width: 1024px) {
+    .main-navigation {
+        display: none; /* 隐藏主导航，显示汉堡菜单 */
+    }
+
+    .header-actions {
+        gap: var(--space-2);
+    }
+
+    .action-btn {
+        width: 36px;
+        height: 36px;
+    }
+
+    .auth-buttons {
+        flex-direction: column;
+        gap: var(--space-1);
+    }
+
+    .btn-secondary, .btn-primary {
+        padding: var(--space-1) var(--space-3);
+        font-size: var(--font-size-xs);
+    }
+}
+
+/* 移动端适配 - Mobile Adaptation */
+@media (max-width: 768px) {
+    .lottiefiles-header {
+        height: 64px;
+        padding: 0 var(--space-4);
+    }
+
+    .header-content {
+        padding: 0;
+    }
+
+    .logo {
+        font-size: var(--font-size-lg);
+    }
+
+    .logo-icon {
+        font-size: 20px;
+    }
+
+    .header-actions {
+        gap: var(--space-1);
+    }
+
+    .action-btn {
+        width: 32px;
+        height: 32px;
+    }
+
+    .user-avatar {
+        width: 32px;
+        height: 32px;
+        font-size: var(--font-size-xs);
+    }
+
+    /* 移动端下拉菜单调整 - Mobile dropdown adjustments */
+    .nav-dropdown {
+        position: fixed;
+        top: 64px;
+        left: 0;
+        right: 0;
+        transform: none;
+        margin-top: 0;
+        border-radius: 0;
+        min-width: auto;
+        max-height: calc(100vh - 64px);
+        overflow-y: auto;
+    }
+
+    .user-dropdown {
+        position: fixed;
+        top: 64px;
+        right: var(--space-4);
+        left: auto;
+        width: 280px;
+        transform: none;
+    }
+
+    .dropdown-content {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+        padding: var(--space-4);
+    }
+}
+
+/* 小屏幕适配 - Small Screen Adaptation */
+@media (max-width: 480px) {
+    .lottiefiles-header {
+        height: 56px;
+        padding: 0 var(--space-3);
+    }
+
+    .logo {
+        font-size: var(--font-size-base);
+    }
+
+    .logo-icon {
+        font-size: 18px;
+    }
+
+    .header-actions {
+        gap: var(--space-1);
+    }
+
+    .action-btn {
+        width: 28px;
+        height: 28px;
+    }
+
+    .user-avatar {
+        width: 28px;
+        height: 28px;
+        font-size: 10px;
+    }
+
+    .auth-buttons {
+        display: none; /* 在很小的屏幕上隐藏认证按钮 */
+    }
+
+    .user-dropdown {
+        right: var(--space-3);
+        width: calc(100vw - var(--space-6));
+    }
+}
+
+/* 悬停状态禁用 - Disable Hover States on Touch Devices */
+@media (hover: none) and (pointer: coarse) {
+    .nav-trigger:hover,
+    .nav-link:hover,
+    .dropdown-link:hover,
+    .action-btn:hover,
+    .btn-secondary:hover,
+    .btn-primary:hover,
+    .user-avatar:hover {
+        transform: none;
+        background: initial;
+        color: initial;
+        border-color: initial;
+        box-shadow: none;
+    }
+
+    /* 触摸设备上的激活状态 - Active states on touch devices */
+    .nav-trigger:active,
+    .action-btn:active,
+    .btn-primary:active {
+        transform: scale(0.95);
+    }
+}
+
+/* 减少动效偏好 - Reduced Motion Preferences */
+@media (prefers-reduced-motion: reduce) {
+    .nav-arrow,
+    .nav-dropdown,
+    .theme-icon,
+    .nav-trigger,
+    .dropdown-link,
+    .action-btn,
+    .user-avatar,
+    .btn-secondary,
+    .btn-primary {
+        transition: none !important;
+        animation: none !important;
+    }
+
+    .nav-trigger[aria-expanded="true"] .nav-arrow {
+        transform: none !important;
+    }
+}
+
+/* 高对比度模式支持 - High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    .lottiefiles-header {
+        border-bottom: 2px solid;
+    }
+
+    .nav-dropdown {
+        border: 2px solid;
+    }
+
+    .action-btn {
+        border: 2px solid;
+    }
+
+    .dropdown-link:hover,
+    .nav-trigger:hover {
+        outline: 2px solid;
+        outline-offset: 2px;
+    }
 }
 
 .header-content {
