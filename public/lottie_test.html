@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURORA Blog - Lottie Integration Test</title>
+    <link rel="stylesheet" href="/assets/application.css">
+    <style>
+        /* CSS Variables for AURORA Design */
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #64748b;
+            --border-color: #475569;
+            --accent-primary: #6366f1;
+            --accent-secondary: #a855f7;
+            --accent-gradient: linear-gradient(135deg, #6366f1, #a855f7);
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
+            --space-20: 5rem;
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.875rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.25rem;
+            --font-size-2xl: 1.5rem;
+            --font-size-3xl: 1.875rem;
+            --font-size-4xl: 2.25rem;
+            --anim-normal: 0.3s;
+            --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+        }
+
+        /* Header Styles */
+        .lottie-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+            padding: 0 var(--space-8);
+            height: 80px;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            height: 100%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            font-weight: 700;
+            font-size: var(--font-size-xl);
+        }
+
+        .logo-icon {
+            font-size: 24px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .theme-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--anim-normal) ease;
+        }
+
+        .theme-btn:hover {
+            background: var(--bg-secondary);
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-primary);
+            padding: var(--space-20) var(--space-6);
+        }
+
+        .hero-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .lottie-container {
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .hero-title {
+            font-size: var(--font-size-4xl);
+            font-weight: 800;
+            margin-bottom: var(--space-6);
+            line-height: 1.2;
+        }
+
+        .gradient-text {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: var(--font-size-lg);
+            color: var(--text-secondary);
+            margin-bottom: var(--space-8);
+            line-height: 1.6;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-4) var(--space-6);
+            background: var(--accent-gradient);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all var(--anim-normal) ease;
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);
+        }
+
+        /* CSS Particle Animation */
+        .css-particle-animation {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            opacity: 0.8;
+            transition: transform 0.1s ease-out;
+        }
+
+        .particle-1 {
+            top: 20%;
+            left: 15%;
+            animation: float-particle 8s ease-in-out infinite;
+            background: #6366f1;
+            box-shadow: 0 0 15px #6366f1;
+        }
+
+        .particle-2 {
+            top: 60%;
+            left: 80%;
+            animation: float-particle 6s ease-in-out infinite -2s;
+            background: #a855f7;
+            box-shadow: 0 0 12px #a855f7;
+        }
+
+        .particle-3 {
+            top: 40%;
+            left: 60%;
+            animation: float-particle 10s ease-in-out infinite -4s;
+            background: #06b6d4;
+            box-shadow: 0 0 8px #06b6d4;
+        }
+
+        .particle-4 {
+            top: 80%;
+            left: 30%;
+            animation: float-particle 7s ease-in-out infinite -1s;
+            background: #8b5cf6;
+            box-shadow: 0 0 10px #8b5cf6;
+        }
+
+        .particle-5 {
+            top: 30%;
+            left: 90%;
+            animation: float-particle 9s ease-in-out infinite -3s;
+            background: #ec4899;
+            box-shadow: 0 0 6px #ec4899;
+        }
+
+        @keyframes float-particle {
+            0%, 100% {
+                transform: translateY(0px) translateX(0px) scale(1);
+                opacity: 0.8;
+            }
+            25% {
+                transform: translateY(-30px) translateX(20px) scale(1.2);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-10px) translateX(-15px) scale(0.8);
+                opacity: 0.6;
+            }
+            75% {
+                transform: translateY(-40px) translateX(10px) scale(1.1);
+                opacity: 0.9;
+            }
+        }
+
+        .css-particle-animation:hover .particle {
+            animation-duration: 4s;
+            box-shadow: 0 0 20px currentColor;
+        }
+
+        /* Static Fallback */
+        .hero-static-bg {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .gradient-orb {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, transparent 70%);
+            animation: float 6s ease-in-out infinite;
+            top: 20%;
+            left: 10%;
+        }
+
+        .gradient-orb.secondary {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.2) 0%, transparent 70%);
+            animation-delay: -3s;
+            top: 60%;
+            right: 15%;
+            left: auto;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-20px) scale(1.05); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-animation {
+                display: none;
+            }
+            
+            .hero-title {
+                font-size: var(--font-size-2xl);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero-animation,
+            .gradient-orb,
+            .particle {
+                animation: none !important;
+                transform: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="lottie-header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>AURORA</span>
+            </div>
+            
+            <button class="theme-btn" id="theme-toggle">
+                <span id="theme-icon">🌙</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-animation">
+            <div class="lottie-container" id="lottie-container"></div>
+        </div>
+        
+        <div class="hero-content">
+            <h1 class="hero-title">
+                Creating Digital
+                <span class="gradient-text">Experiences</span>
+                That Inspire
+            </h1>
+            <p class="hero-subtitle">
+                A creative blog exploring the intersection of design, technology, and human connection through visual storytelling.
+            </p>
+            <a href="#" class="hero-cta">
+                Explore My Work
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="m9 18 6-6-6-6"/>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <script>
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('AURORA Blog Test Page loaded');
+            
+            // Initialize theme
+            initializeTheme();
+            
+            // Initialize animations
+            initializeAnimations();
+        });
+
+        function initializeTheme() {
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIcon = document.getElementById('theme-icon');
+            
+            themeToggle.addEventListener('click', function() {
+                const isDark = document.documentElement.classList.contains('dark');
+                document.documentElement.classList.toggle('dark', !isDark);
+                themeIcon.textContent = isDark ? '🌙' : '☀️';
+                localStorage.setItem('theme', isDark ? 'light' : 'dark');
+            });
+        }
+
+        function initializeAnimations() {
+            const container = document.getElementById('lottie-container');
+            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const isMobile = window.innerWidth < 768;
+            
+            if (reducedMotion || isMobile) {
+                showStaticFallback(container);
+                return;
+            }
+            
+            // Show CSS particle animation
+            container.innerHTML = `
+                <div class="css-particle-animation">
+                    <div class="particle particle-1"></div>
+                    <div class="particle particle-2"></div>
+                    <div class="particle particle-3"></div>
+                    <div class="particle particle-4"></div>
+                    <div class="particle particle-5"></div>
+                </div>
+            `;
+            container.style.opacity = '1';
+            
+            // Setup mouse interactions
+            setupMouseInteractions(container);
+        }
+
+        function setupMouseInteractions(container) {
+            let lastTime = 0;
+            const throttleMs = 16;
+            
+            const mouseMoveHandler = (event) => {
+                const now = Date.now();
+                if (now - lastTime < throttleMs) return;
+                lastTime = now;
+                
+                const rect = container.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                
+                const deltaX = event.clientX - centerX;
+                const deltaY = event.clientY - centerY;
+                const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+                
+                if (distance < 150) {
+                    const particles = container.querySelectorAll('.particle');
+                    particles.forEach((particle, index) => {
+                        const offset = (index + 1) * 10;
+                        const x = (deltaX / distance) * offset;
+                        const y = (deltaY / distance) * offset;
+                        particle.style.transform = `translate(${x}px, ${y}px)`;
+                    });
+                }
+            };
+            
+            document.addEventListener('pointermove', mouseMoveHandler, { passive: true });
+        }
+
+        function showStaticFallback(container) {
+            container.innerHTML = `
+                <div class="hero-static-bg">
+                    <div class="gradient-orb"></div>
+                    <div class="gradient-orb secondary"></div>
+                </div>
+            `;
+            container.style.opacity = '1';
+        }
+    </script>
+</body>
+</html>

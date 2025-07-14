@@ -1736,3 +1736,114 @@ body {
     outline: 2px solid var(--accent-primary);
     outline-offset: 4px;
 }
+
+/* ===== CSS 粒子动画 - CSS PARTICLE ANIMATION ===== */
+
+.css-particle-animation {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--accent-primary);
+    border-radius: 50%;
+    opacity: 0.8;
+    transition: transform 0.1s ease-out;
+    box-shadow: 0 0 10px var(--accent-primary);
+}
+
+.particle-1 {
+    top: 20%;
+    left: 15%;
+    animation: float-particle 8s ease-in-out infinite;
+    background: #6366f1;
+    box-shadow: 0 0 15px #6366f1;
+}
+
+.particle-2 {
+    top: 60%;
+    left: 80%;
+    animation: float-particle 6s ease-in-out infinite -2s;
+    background: #a855f7;
+    box-shadow: 0 0 12px #a855f7;
+}
+
+.particle-3 {
+    top: 40%;
+    left: 60%;
+    animation: float-particle 10s ease-in-out infinite -4s;
+    background: #06b6d4;
+    box-shadow: 0 0 8px #06b6d4;
+}
+
+.particle-4 {
+    top: 80%;
+    left: 30%;
+    animation: float-particle 7s ease-in-out infinite -1s;
+    background: #8b5cf6;
+    box-shadow: 0 0 10px #8b5cf6;
+}
+
+.particle-5 {
+    top: 30%;
+    left: 90%;
+    animation: float-particle 9s ease-in-out infinite -3s;
+    background: #ec4899;
+    box-shadow: 0 0 6px #ec4899;
+}
+
+@keyframes float-particle {
+    0%, 100% {
+        transform: translateY(0px) translateX(0px) scale(1);
+        opacity: 0.8;
+    }
+    25% {
+        transform: translateY(-30px) translateX(20px) scale(1.2);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(-10px) translateX(-15px) scale(0.8);
+        opacity: 0.6;
+    }
+    75% {
+        transform: translateY(-40px) translateX(10px) scale(1.1);
+        opacity: 0.9;
+    }
+}
+
+/* 鼠标悬停时的粒子效果增强 - Enhanced particle effects on hover */
+.css-particle-animation:hover .particle {
+    animation-duration: 4s;
+    box-shadow: 0 0 20px currentColor;
+}
+
+/* 深色主题下的粒子调整 - Particle adjustments for dark theme */
+.dark .particle-1 {
+    background: #818cf8;
+    box-shadow: 0 0 15px #818cf8;
+}
+
+.dark .particle-2 {
+    background: #c084fc;
+    box-shadow: 0 0 12px #c084fc;
+}
+
+.dark .particle-3 {
+    background: #22d3ee;
+    box-shadow: 0 0 8px #22d3ee;
+}
+
+.dark .particle-4 {
+    background: #a78bfa;
+    box-shadow: 0 0 10px #a78bfa;
+}
+
+.dark .particle-5 {
+    background: #f472b6;
+    box-shadow: 0 0 6px #f472b6;
+}
