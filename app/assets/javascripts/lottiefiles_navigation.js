@@ -12,6 +12,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 初始化搜索功能 - Initialize search
     initializeSearch();
+
+    // 初始化语言选择器 - Initialize language selector
+    initializeLanguageSelector();
 });
 
 // 下拉导航初始化 - Dropdown Navigation Initialization
@@ -209,34 +212,336 @@ function updateThemeIcons(theme, darkIcon, lightIcon) {
 
 // 搜索功能初始化 - Search Initialization
 function initializeSearch() {
-    const searchBtn = document.querySelector('.search-btn');
-    
-    if (!searchBtn) return;
-    
-    searchBtn.addEventListener('click', function() {
-        // 简单的搜索提示 - Simple search prompt
-        const searchQuery = prompt('🔍 Search for posts, animations, or tutorials...');
-        
-        if (searchQuery && searchQuery.trim()) {
-            // 这里可以实现真实的搜索功能 - Real search functionality can be implemented here
-            console.log('Searching for:', searchQuery);
-            
-            // 示例：跳转到搜索页面 - Example: redirect to search page
-            if (window.location.pathname.includes('/posts')) {
-                window.location.href = `/posts?q[title_cont]=${encodeURIComponent(searchQuery)}`;
-            } else {
-                // 可以实现全站搜索 - Can implement site-wide search
-                alert(`Searching for: "${searchQuery}"\n\nThis would normally open a search results page.`);
+    const searchTrigger = document.querySelector('[data-search-trigger]');
+    const searchModal = document.querySelector('[data-search-modal]');
+    const searchInput = document.querySelector('[data-search-input]');
+    const searchClose = document.querySelector('[data-search-close]');
+    const searchResults = document.querySelector('[data-search-results]');
+
+    if (!searchTrigger || !searchModal) return;
+
+    let isSearchOpen = false;
+
+    // 打开搜索模态 - Open search modal
+    function openSearch() {
+        isSearchOpen = true;
+        searchModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        // 延迟聚焦输入框 - Delayed focus on input
+        setTimeout(() => {
+            if (searchInput) {
+                searchInput.focus();
             }
+        }, 150);
+    }
+
+    // 关闭搜索模态 - Close search modal
+    function closeSearch() {
+        isSearchOpen = false;
+        searchModal.classList.remove('active');
+        document.body.style.overflow = '';
+
+        // 清空搜索输入 - Clear search input
+        if (searchInput) {
+            searchInput.value = '';
+        }
+    }
+
+    // 搜索触发器点击 - Search trigger click
+    searchTrigger.addEventListener('click', function(e) {
+        e.preventDefault();
+        openSearch();
+    });
+
+    // 关闭按钮点击 - Close button click
+    if (searchClose) {
+        searchClose.addEventListener('click', closeSearch);
+    }
+
+    // 模态背景点击关闭 - Click modal background to close
+    searchModal.addEventListener('click', function(e) {
+        if (e.target === searchModal) {
+            closeSearch();
         }
     });
-    
+
+    // 搜索输入处理 - Search input handling
+    if (searchInput) {
+        searchInput.addEventListener('input', function(e) {
+            const query = e.target.value.trim();
+
+            if (query.length > 0) {
+                performSearch(query);
+            } else {
+                showDefaultResults();
+            }
+        });
+    }
+
     // 键盘快捷键支持 - Keyboard shortcut support
     document.addEventListener('keydown', function(e) {
         // Ctrl/Cmd + K 打开搜索 - Ctrl/Cmd + K to open search
         if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
             e.preventDefault();
-            searchBtn.click();
+            openSearch();
+        }
+
+        // ESC 关闭搜索 - ESC to close search
+        if (e.key === 'Escape' && isSearchOpen) {
+            closeSearch();
+        }
+
+        // 搜索结果导航 - Search results navigation
+        if (isSearchOpen && (e.key === 'ArrowUp' || e.key === 'ArrowDown')) {
+            e.preventDefault();
+            navigateSearchResults(e.key === 'ArrowDown' ? 1 : -1);
+        }
+
+        // Enter 选择搜索结果 - Enter to select search result
+        if (isSearchOpen && e.key === 'Enter') {
+            e.preventDefault();
+            selectCurrentSearchResult();
+        }
+    });
+
+    // 执行搜索 - Perform search
+    function performSearch(query) {
+        // 模拟搜索结果 - Simulate search results
+        const mockResults = [
+            {
+                type: 'Posts',
+                items: [
+                    {
+                        icon: '📝',
+                        title: `"${query}" in Blog Posts`,
+                        desc: 'Search through all blog articles',
+                        url: `/posts?q[title_cont]=${encodeURIComponent(query)}`
+                    }
+                ]
+            },
+            {
+                type: 'Pages',
+                items: [
+                    {
+                        icon: '🏠',
+                        title: 'Home Page',
+                        desc: 'Main landing page',
+                        url: '/'
+                    },
+                    {
+                        icon: '📞',
+                        title: 'Contact',
+                        desc: 'Get in touch with us',
+                        url: '#contact'
+                    }
+                ]
+            }
+        ];
+
+        displaySearchResults(mockResults);
+    }
+
+    // 显示默认结果 - Show default results
+    function showDefaultResults() {
+        // 恢复默认的搜索建议 - Restore default search suggestions
+        // 这里可以显示热门搜索、最近搜索等
+    }
+
+    // 显示搜索结果 - Display search results
+    function displaySearchResults(results) {
+        if (!searchResults) return;
+
+        const html = results.map(section => `
+            <div class="search-section">
+                <div class="search-section-title">${section.type}</div>
+                <div class="search-items">
+                    ${section.items.map(item => `
+                        <a href="${item.url}" class="search-item" data-search-item>
+                            <div class="search-item-icon">${item.icon}</div>
+                            <div class="search-item-content">
+                                <div class="search-item-title">${item.title}</div>
+                                <div class="search-item-desc">${item.desc}</div>
+                            </div>
+                        </a>
+                    `).join('')}
+                </div>
+            </div>
+        `).join('');
+
+        searchResults.innerHTML = html;
+    }
+
+    // 导航搜索结果 - Navigate search results
+    let currentSearchIndex = -1;
+
+    function navigateSearchResults(direction) {
+        const items = searchResults.querySelectorAll('[data-search-item]');
+        if (items.length === 0) return;
+
+        // 移除当前高亮 - Remove current highlight
+        if (currentSearchIndex >= 0 && items[currentSearchIndex]) {
+            items[currentSearchIndex].classList.remove('highlighted');
+        }
+
+        // 计算新索引 - Calculate new index
+        currentSearchIndex += direction;
+        if (currentSearchIndex < 0) currentSearchIndex = items.length - 1;
+        if (currentSearchIndex >= items.length) currentSearchIndex = 0;
+
+        // 添加新高亮 - Add new highlight
+        if (items[currentSearchIndex]) {
+            items[currentSearchIndex].classList.add('highlighted');
+            items[currentSearchIndex].scrollIntoView({ block: 'nearest' });
+        }
+    }
+
+    // 选择当前搜索结果 - Select current search result
+    function selectCurrentSearchResult() {
+        const items = searchResults.querySelectorAll('[data-search-item]');
+        if (currentSearchIndex >= 0 && items[currentSearchIndex]) {
+            items[currentSearchIndex].click();
+        }
+    }
+}
+
+// 工具函数：防抖 - Utility: Debounce
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// 语言选择器初始化 - Language Selector Initialization
+function initializeLanguageSelector() {
+    const languageSelector = document.querySelector('[data-language-selector]');
+
+    if (!languageSelector) return;
+
+    const trigger = languageSelector.querySelector('.language-trigger');
+    const dropdown = languageSelector.querySelector('.language-dropdown');
+    const currentLang = languageSelector.querySelector('[data-current-lang]');
+    const options = languageSelector.querySelectorAll('.language-option');
+
+    let isOpen = false;
+    let hoverTimeout;
+
+    // 打开语言选择器 - Open language selector
+    function openLanguageSelector() {
+        isOpen = true;
+        languageSelector.classList.add('active');
+        trigger.setAttribute('aria-expanded', 'true');
+    }
+
+    // 关闭语言选择器 - Close language selector
+    function closeLanguageSelector() {
+        isOpen = false;
+        languageSelector.classList.remove('active');
+        trigger.setAttribute('aria-expanded', 'false');
+    }
+
+    // 鼠标进入触发器 - Mouse enter trigger
+    trigger.addEventListener('mouseenter', function() {
+        clearTimeout(hoverTimeout);
+        openLanguageSelector();
+    });
+
+    // 鼠标进入下拉菜单 - Mouse enter dropdown
+    dropdown.addEventListener('mouseenter', function() {
+        clearTimeout(hoverTimeout);
+    });
+
+    // 鼠标离开选择器 - Mouse leave selector
+    languageSelector.addEventListener('mouseleave', function() {
+        hoverTimeout = setTimeout(() => {
+            closeLanguageSelector();
+        }, 150);
+    });
+
+    // 点击触发器 - Click trigger
+    trigger.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (isOpen) {
+            closeLanguageSelector();
+        } else {
+            openLanguageSelector();
+        }
+    });
+
+    // 语言选项点击 - Language option click
+    options.forEach(option => {
+        option.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            const lang = this.dataset.lang;
+            const langName = this.querySelector('.language-option-name').textContent;
+
+            // 更新当前语言显示 - Update current language display
+            if (currentLang) {
+                currentLang.textContent = lang.toUpperCase();
+            }
+
+            // 更新活跃状态 - Update active state
+            options.forEach(opt => opt.classList.remove('active'));
+            this.classList.add('active');
+
+            // 关闭下拉菜单 - Close dropdown
+            closeLanguageSelector();
+
+            // 这里可以实现语言切换逻辑 - Language switching logic can be implemented here
+            console.log('Language changed to:', lang, langName);
+
+            // 示例：重新加载页面并设置语言参数 - Example: reload page with language parameter
+            const url = new URL(window.location);
+            url.searchParams.set('locale', lang);
+            window.location.href = url.toString();
+        });
+    });
+
+    // 点击外部关闭 - Click outside to close
+    document.addEventListener('click', function(e) {
+        if (!languageSelector.contains(e.target)) {
+            closeLanguageSelector();
+        }
+    });
+
+    // 键盘支持 - Keyboard support
+    trigger.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            if (isOpen) {
+                closeLanguageSelector();
+            } else {
+                openLanguageSelector();
+            }
+        }
+
+        if (e.key === 'Escape') {
+            closeLanguageSelector();
+        }
+    });
+
+    // 初始化当前语言 - Initialize current language
+    const urlParams = new URLSearchParams(window.location.search);
+    const currentLocale = urlParams.get('locale') || 'en';
+
+    // 设置当前语言显示 - Set current language display
+    if (currentLang) {
+        currentLang.textContent = currentLocale.toUpperCase();
+    }
+
+    // 设置活跃选项 - Set active option
+    options.forEach(option => {
+        if (option.dataset.lang === currentLocale) {
+            option.classList.add('active');
+        } else {
+            option.classList.remove('active');
         }
     });
 }
