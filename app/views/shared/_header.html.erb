@@ -1,46 +1,90 @@
-<!-- Header component extracted from AURORA design -->
-<!-- This header includes the logo, desktop navigation, and mobile hamburger menu -->
-<header class="header" id="header">
-    <div class="logo">AURORA</div>
+<!-- LottieFiles 风格头部 - LottieFiles Style Header -->
+<header class="header lottie-header" id="header">
+    <div class="header-content">
+        <div class="logo-container">
+            <div class="logo">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">AURORA</span>
+            </div>
+        </div>
 
-    <!-- Desktop Navigation -->
-    <nav class="top-nav" id="top-nav" role="navigation" aria-label="Primary navigation">
-        <%= link_to "#home", class: "nav-link active", data: { page: "home" } do %>
-            <%= t('navigation.home') %>
-        <% end %>
-        <%= link_to posts_path, class: "nav-link", data: { page: "work" } do %>
-            <%= t('navigation.work') %>
-        <% end %>
-        <%= link_to "#journal", class: "nav-link", data: { page: "journal" } do %>
-            <%= t('navigation.journal') %>
-        <% end %>
-        <%= link_to "#about", class: "nav-link", data: { page: "about" } do %>
-            <%= t('navigation.about') %>
-        <% end %>
-        <%= link_to "#contact", class: "nav-link", data: { page: "contact" } do %>
-            <%= t('navigation.contact') %>
-        <% end %>
+        <!-- LottieFiles 风格导航 - LottieFiles Style Navigation -->
+        <nav class="top-nav lottie-nav" id="top-nav" role="navigation" aria-label="Primary navigation">
+            <div class="nav-section">
+                <span class="nav-label">Discover</span>
+                <div class="nav-links">
+                    <%= link_to "#home", class: "nav-link active", data: { page: "home" } do %>
+                        <span><%= t('navigation.home') %></span>
+                    <% end %>
+                    <%= link_to posts_path, class: "nav-link", data: { page: "work" } do %>
+                        <span><%= t('navigation.work') %></span>
+                        <span class="nav-badge">Free</span>
+                    <% end %>
+                    <%= link_to "#journal", class: "nav-link", data: { page: "journal" } do %>
+                        <%= t('navigation.journal') %>
+                    <% end %>
+                </div>
+            </div>
 
-        <!-- 语言切换器 - Language Switcher -->
-        <%= render 'shared/language_switcher' %>
+            <div class="nav-section">
+                <span class="nav-label">Create</span>
+                <div class="nav-links">
+                    <%= link_to "#about", class: "nav-link", data: { page: "about" } do %>
+                        <%= t('navigation.about') %>
+                    <% end %>
+                    <%= link_to "#contact", class: "nav-link", data: { page: "contact" } do %>
+                        <%= t('navigation.contact') %>
+                    <% end %>
+                </div>
+            </div>
 
-        <!-- Authentication Links for Desktop -->
-        <% if user_signed_in? %>
-            <%= link_to new_post_path, class: "nav-link", title: t('navigation.new_post') do %>
-                <%= t('navigation.new_post') %>
+            <div class="nav-section">
+                <span class="nav-label">Learn</span>
+                <div class="nav-links">
+                    <%= link_to "#blog", class: "nav-link" do %>Blog<% end %>
+                    <%= link_to "#tutorials", class: "nav-link" do %>Tutorials<% end %>
+                </div>
+            </div>
+        </nav>
+
+        <div class="header-actions">
+            <button class="search-btn" data-controller="search" data-action="click->search#toggle">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="m21 21-4.35-4.35"/>
+                </svg>
+            </button>
+
+            <div class="theme-toggle" data-controller="theme-toggle">
+                <button data-action="click->theme-toggle#toggle" class="theme-btn">
+                    <span class="theme-icon dark-icon">🌙</span>
+                    <span class="theme-icon light-icon">☀️</span>
+                </button>
+            </div>
+
+
+            <!-- 语言切换器 - Language Switcher -->
+            <%= render 'shared/language_switcher' %>
+
+            <% if user_signed_in? %>
+                <div class="user-menu" data-controller="dropdown">
+                    <button data-action="click->dropdown#toggle" class="user-avatar">
+                        <%= current_user.display_name.first.upcase %>
+                    </button>
+                    <div data-dropdown-target="menu" class="dropdown-menu">
+                        <%= link_to t('navigation.profile'), edit_user_registration_path, class: "dropdown-item" %>
+                        <%= link_to t('navigation.new_post'), new_post_path, class: "dropdown-item" %>
+                        <%= link_to t('navigation.sign_out'), destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+                    </div>
+                </div>
+            <% else %>
+                <div class="auth-buttons">
+                    <%= link_to t('navigation.sign_in'), new_user_session_path, class: "btn-secondary" %>
+                    <%= link_to t('navigation.sign_up'), new_user_registration_path, class: "btn-primary" %>
+                </div>
             <% end %>
-            <%= link_to destroy_user_session_path, method: :delete, class: "nav-link", title: t('navigation.sign_out') do %>
-                <%= t('navigation.sign_out') %>
-            <% end %>
-        <% else %>
-            <%= link_to new_user_session_path, class: "nav-link" do %>
-                <%= t('navigation.sign_in') %>
-            <% end %>
-            <%= link_to new_user_registration_path, class: "nav-link" do %>
-                <%= t('navigation.sign_up') %>
-            <% end %>
-        <% end %>
-    </nav>
+        </div>
+    </div>
     
     <!-- Mobile Menu Toggle -->
     <!-- The hamburger menu uses CSS animations for smooth transitions -->

@@ -1,6 +1,14 @@
-<!-- Hero Section -->
-<!-- This hero section creates the main visual impact with gradient text and call-to-action -->
+<!-- Hero Section with Lottie Animation -->
+<!-- This hero section creates the main visual impact with gradient text, call-to-action and Lottie animation -->
 <section class="hero" id="home">
+    <!-- Lottie 动画容器 - Lottie animation container -->
+    <div class="hero-animation"
+         data-controller="lottie-hero"
+         data-lottie-hero-animation-url-value="https://assets5.lottiefiles.com/packages/lf20_jcikwtux.json"
+         data-lottie-hero-theme-value="dark">
+        <div data-lottie-hero-target="container" class="lottie-container"></div>
+    </div>
+
     <div class="hero-content">
         <h1 class="hero-title">
             <%= t('hero.title_part1') %>
