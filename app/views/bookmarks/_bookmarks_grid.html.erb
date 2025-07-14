@@ -1,0 +1,123 @@
+<%# 书签网格部分模板 - Bookmarks grid partial template %>
+<% bookmarks.each_with_index do |bookmark, index| %>
+  <div class="bookmark-card" 
+       data-bookmark-id="<%= bookmark.id %>"
+       data-category="<%= bookmark.category.downcase %>"
+       data-tags="<%= bookmark.tags.join(' ').downcase %>"
+       data-title="<%= bookmark.title.downcase %>"
+       data-description="<%= bookmark.description&.downcase %>"
+       data-animation-delay="<%= index * 0.1 %>"
+       data-action="click->bookmarks-grid#openBookmark"
+       style="--primary-color: <%= bookmark.color_scheme[:primary] %>; --secondary-color: <%= bookmark.color_scheme[:secondary] %>;">
+    
+    <!-- 书签图片 - Bookmark Image -->
+    <div class="bookmark-image">
+      <div class="image-container">
+        <img src="<%= bookmark.screenshot_url %>" 
+             alt="<%= bookmark.title %>" 
+             loading="lazy"
+             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDMwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0xMzUgODBIMTY1VjEyMEgxMzVWODBaIiBmaWxsPSIjOUI5QkEwIi8+CjxwYXRoIGQ9Ik0xMjAgMTAwSDE4MFYxMTBIMTIwVjEwMFoiIGZpbGw9IiM5QjlCQTAiLz4KPC9zdmc+'"
+             class="bookmark-img">
+        
+        <!-- 特色标签 - Featured Badge -->
+        <% if bookmark.featured %>
+          <div class="featured-badge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"></polygon>
+            </svg>
+            <%= t('bookmarks.featured') %>
+          </div>
+        <% end %>
+        
+        <!-- 悬停覆盖层 - Hover Overlay -->
+        <div class="bookmark-overlay">
+          <div class="overlay-content">
+            <button class="overlay-btn primary" data-action="click->bookmarks-grid#openBookmark">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+              <%= t('bookmarks.view_details') %>
+            </button>
+            <button class="overlay-btn secondary" data-action="click->bookmarks-grid#visitSite" data-url="<%= bookmark.url %>">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15,3 21,3 21,9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+              <%= t('bookmarks.visit_site') %>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 书签内容 - Bookmark Content -->
+    <div class="bookmark-content">
+      <!-- 分类标签 - Category Tag -->
+      <div class="bookmark-category">
+        <span class="category-tag" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
+          <%= t("bookmarks.categories.#{bookmark.category.downcase}", default: bookmark.category) %>
+        </span>
+      </div>
+      
+      <!-- 标题和描述 - Title and Description -->
+      <div class="bookmark-info">
+        <h3 class="bookmark-title" title="<%= bookmark.title %>">
+          <%= bookmark.title %>
+        </h3>
+        <p class="bookmark-description" title="<%= bookmark.description %>">
+          <%= bookmark.description %>
+        </p>
+        
+        <!-- 域名 - Domain -->
+        <div class="bookmark-domain">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+          </svg>
+          <%= bookmark.domain %>
+        </div>
+      </div>
+      
+      <!-- 标签 - Tags -->
+      <% if bookmark.tags.present? %>
+        <div class="bookmark-tags">
+          <% bookmark.tags.first(3).each do |tag| %>
+            <span class="tag">#<%= tag %></span>
+          <% end %>
+          <% if bookmark.tags.count > 3 %>
+            <span class="tag-more">+<%= bookmark.tags.count - 3 %></span>
+          <% end %>
+        </div>
+      <% end %>
+      
+      <!-- 统计信息 - Statistics -->
+      <div class="bookmark-stats">
+        <div class="stat-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+          <span><%= bookmark.views_count %></span>
+        </div>
+        <div class="stat-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+          <span><%= bookmark.likes_count %></span>
+        </div>
+        <div class="stat-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"></path>
+          </svg>
+          <span><%= time_ago_in_words(bookmark.created_at) %></span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 悬停动画触发器 - Hover Animation Trigger -->
+    <div class="bookmark-animation-trigger"></div>
+  </div>
+<% end %>

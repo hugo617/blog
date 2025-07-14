@@ -1,0 +1,146 @@
+<%# 书签详情模态模板 - Bookmark detail modal template %>
+<div class="bookmark-modal-content" style="--primary-color: <%= bookmark.color_scheme[:primary] %>; --secondary-color: <%= bookmark.color_scheme[:secondary] %>;">
+  <!-- 模态头部 - Modal Header -->
+  <div class="modal-header">
+    <div class="modal-image">
+      <img src="<%= bookmark.screenshot_url %>" alt="<%= bookmark.title %>" class="modal-img">
+      <% if bookmark.featured %>
+        <div class="featured-badge large">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"></polygon>
+          </svg>
+          <%= t('bookmarks.featured') %>
+        </div>
+      <% end %>
+    </div>
+    
+    <div class="modal-info">
+      <!-- 分类 - Category -->
+      <div class="modal-category">
+        <span class="category-tag large" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
+          <%= t("bookmarks.categories.#{bookmark.category.downcase}", default: bookmark.category) %>
+        </span>
+      </div>
+      
+      <!-- 标题和描述 - Title and Description -->
+      <h2 class="modal-title"><%= bookmark.title %></h2>
+      <p class="modal-description"><%= bookmark.description %></p>
+      
+      <!-- 域名和链接 - Domain and Link -->
+      <div class="modal-domain">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+          <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+        </svg>
+        <span><%= bookmark.domain %></span>
+      </div>
+      
+      <!-- 操作按钮 - Action Buttons -->
+      <div class="modal-actions">
+        <a href="<%= bookmark.url %>" target="_blank" rel="noopener noreferrer" class="btn-primary large" data-action="click->bookmarks-grid#incrementViews" data-bookmark-id="<%= bookmark.id %>">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15,3 21,3 21,9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+          <%= t('bookmarks.visit_website') %>
+        </a>
+        
+        <button class="btn-secondary large" data-action="click->bookmarks-grid#toggleLike" data-bookmark-id="<%= bookmark.id %>">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+          <%= t('bookmarks.like') %>
+        </button>
+        
+        <button class="btn-secondary large" data-action="click->bookmarks-grid#shareBookmark" data-bookmark-id="<%= bookmark.id %>">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="18" cy="5" r="3"></circle>
+            <circle cx="6" cy="12" r="3"></circle>
+            <circle cx="18" cy="19" r="3"></circle>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+          </svg>
+          <%= t('bookmarks.share') %>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 模态内容 - Modal Content -->
+  <div class="modal-body">
+    <!-- 标签 - Tags -->
+    <% if bookmark.tags.present? %>
+      <div class="modal-section">
+        <h4 class="section-title"><%= t('bookmarks.tags') %></h4>
+        <div class="modal-tags">
+          <% bookmark.tags.each do |tag| %>
+            <span class="tag large">#<%= tag %></span>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    
+    <!-- 统计信息 - Statistics -->
+    <div class="modal-section">
+      <h4 class="section-title"><%= t('bookmarks.statistics') %></h4>
+      <div class="modal-stats">
+        <div class="stat-card">
+          <div class="stat-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-number" data-bookmark-views="<%= bookmark.id %>"><%= bookmark.views_count %></span>
+            <span class="stat-label"><%= t('bookmarks.views') %></span>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-number" data-bookmark-likes="<%= bookmark.id %>"><%= bookmark.likes_count %></span>
+            <span class="stat-label"><%= t('bookmarks.likes') %></span>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"></path>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-number"><%= time_ago_in_words(bookmark.created_at) %></span>
+            <span class="stat-label"><%= t('bookmarks.added') %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 相关书签 - Related Bookmarks -->
+    <% if defined?(related_bookmarks) && related_bookmarks.present? %>
+      <div class="modal-section">
+        <h4 class="section-title"><%= t('bookmarks.related_bookmarks') %></h4>
+        <div class="related-bookmarks">
+          <% related_bookmarks.each do |related| %>
+            <div class="related-bookmark" data-action="click->bookmarks-grid#openBookmark" data-bookmark-id="<%= related.id %>">
+              <img src="<%= related.screenshot_url %>" alt="<%= related.title %>" class="related-img">
+              <div class="related-content">
+                <h5 class="related-title"><%= related.title %></h5>
+                <p class="related-domain"><%= related.domain %></p>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

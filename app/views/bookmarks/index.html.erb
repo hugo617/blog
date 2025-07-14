@@ -1,0 +1,153 @@
+<%# 收藏网址展示页面 - Bookmarks showcase page %>
+<% content_for :title, @featured ? t('bookmarks.featured_title') : t('bookmarks.index_title') %>
+<% content_for :description, t('bookmarks.meta_description') %>
+
+<div class="bookmarks-page" data-controller="bookmarks-grid" data-bookmarks-grid-featured-value="<%= @featured || false %>">
+  <!-- 页面头部 - Page Header -->
+  <div class="bookmarks-header">
+    <div class="container">
+      <div class="bookmarks-hero">
+        <!-- 标题和描述 - Title and Description -->
+        <div class="bookmarks-hero-content">
+          <h1 class="bookmarks-title">
+            <%= @featured ? t('bookmarks.featured_title') : t('bookmarks.index_title') %>
+          </h1>
+          <p class="bookmarks-subtitle">
+            <%= @featured ? t('bookmarks.featured_subtitle') : t('bookmarks.index_subtitle') %>
+          </p>
+          
+          <!-- 统计信息 - Statistics -->
+          <div class="bookmarks-stats">
+            <div class="stat-item">
+              <span class="stat-number" data-bookmarks-grid-target="totalCount"><%= @total_count || @bookmarks.count %></span>
+              <span class="stat-label"><%= t('bookmarks.total_bookmarks') %></span>
+            </div>
+            <% if @categories.present? %>
+              <div class="stat-item">
+                <span class="stat-number"><%= @categories.keys.count %></span>
+                <span class="stat-label"><%= t('bookmarks.categories') %></span>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        
+        <!-- 动画容器 - Animation Container -->
+        <div class="bookmarks-hero-animation">
+          <div id="bookmarks-hero-lottie" class="lottie-animation"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 搜索和过滤器 - Search and Filters -->
+  <div class="bookmarks-controls">
+    <div class="container">
+      <div class="controls-wrapper">
+        <!-- 搜索框 - Search Box -->
+        <div class="search-section">
+          <div class="search-box-wrapper">
+            <div class="search-box" data-bookmarks-grid-target="searchBox">
+              <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="m21 21-4.35-4.35"/>
+              </svg>
+              <input 
+                type="text" 
+                class="search-input" 
+                placeholder="<%= t('bookmarks.search_placeholder') %>"
+                data-bookmarks-grid-target="searchInput"
+                data-action="input->bookmarks-grid#search keyup->bookmarks-grid#search"
+                value="<%= @search_query %>"
+              >
+              <button class="search-clear" data-bookmarks-grid-target="searchClear" data-action="click->bookmarks-grid#clearSearch">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+            
+            <!-- 搜索结果计数 - Search Results Count -->
+            <div class="search-results-info" data-bookmarks-grid-target="searchInfo">
+              <span data-bookmarks-grid-target="searchCount"></span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 分类过滤器 - Category Filters -->
+        <div class="filters-section">
+          <div class="category-filters" data-bookmarks-grid-target="categoryFilters">
+            <button class="filter-btn active" data-category="all" data-action="click->bookmarks-grid#filterByCategory">
+              <%= t('bookmarks.all_categories') %>
+            </button>
+            <% if @categories.present? %>
+              <% @categories.each do |category, count| %>
+                <button class="filter-btn" data-category="<%= category.downcase %>" data-action="click->bookmarks-grid#filterByCategory">
+                  <%= t("bookmarks.categories.#{category.downcase}", default: category) %>
+                  <span class="filter-count"><%= count %></span>
+                </button>
+              <% end %>
+            <% end %>
+          </div>
+          
+          <!-- 排序选项 - Sort Options -->
+          <div class="sort-options">
+            <select class="sort-select" data-bookmarks-grid-target="sortSelect" data-action="change->bookmarks-grid#sort">
+              <option value="recent"><%= t('bookmarks.sort.recent') %></option>
+              <option value="popular"><%= t('bookmarks.sort.popular') %></option>
+              <option value="liked"><%= t('bookmarks.sort.liked') %></option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 书签网格 - Bookmarks Grid -->
+  <div class="bookmarks-content">
+    <div class="container">
+      <!-- 加载动画 - Loading Animation -->
+      <div class="loading-container" data-bookmarks-grid-target="loading">
+        <div id="bookmarks-loading-lottie" class="lottie-animation"></div>
+        <p><%= t('bookmarks.loading') %></p>
+      </div>
+      
+      <!-- 书签网格容器 - Bookmarks Grid Container -->
+      <div class="bookmarks-grid" data-bookmarks-grid-target="grid">
+        <%= render 'bookmarks_grid', bookmarks: @bookmarks %>
+      </div>
+      
+      <!-- 空状态 - Empty State -->
+      <div class="empty-state" data-bookmarks-grid-target="emptyState" style="display: none;">
+        <div id="bookmarks-empty-lottie" class="lottie-animation"></div>
+        <h3><%= t('bookmarks.no_results_title') %></h3>
+        <p><%= t('bookmarks.no_results_message') %></p>
+        <button class="btn-primary" data-action="click->bookmarks-grid#clearSearch">
+          <%= t('bookmarks.clear_search') %>
+        </button>
+      </div>
+      
+      <!-- 加载更多 - Load More -->
+      <div class="load-more-container" data-bookmarks-grid-target="loadMore">
+        <button class="btn-secondary load-more-btn" data-action="click->bookmarks-grid#loadMore">
+          <%= t('bookmarks.load_more') %>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 书签详情模态 - Bookmark Detail Modal -->
+<div class="bookmark-modal" data-bookmarks-grid-target="modal" data-action="click->bookmarks-grid#closeModal">
+  <div class="modal-content" data-action="click->bookmarks-grid#stopPropagation">
+    <button class="modal-close" data-action="click->bookmarks-grid#closeModal">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    <div class="modal-body" data-bookmarks-grid-target="modalBody">
+      <!-- 动态加载内容 - Dynamically loaded content -->
+    </div>
+  </div>
+</div>

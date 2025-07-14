@@ -1,0 +1,78 @@
+# English translations for bookmarks
+en:
+  bookmarks:
+    # Page titles and meta
+    index_title: "Bookmark Collection"
+    featured_title: "Featured Bookmarks"
+    meta_description: "Discover and explore our curated collection of amazing websites, tools, and resources."
+    
+    # Subtitles
+    index_subtitle: "Discover amazing websites, tools, and resources curated for designers and developers."
+    featured_subtitle: "Hand-picked collection of the most inspiring and useful websites."
+    
+    # Navigation and actions
+    total_bookmarks: "Total Bookmarks"
+    categories: "Categories"
+    search_placeholder: "Search bookmarks, tags, or categories..."
+    all_categories: "All"
+    clear_search: "Clear Search"
+    load_more: "Load More"
+    loading: "Loading bookmarks..."
+    
+    # Bookmark actions
+    view_details: "View Details"
+    visit_site: "Visit Site"
+    visit_website: "Visit Website"
+    like: "Like"
+    share: "Share"
+    featured: "Featured"
+    
+    # Statistics
+    views: "Views"
+    likes: "Likes"
+    added: "Added"
+    statistics: "Statistics"
+    
+    # Content
+    tags: "Tags"
+    related_bookmarks: "Related Bookmarks"
+    
+    # Empty states
+    no_results_title: "No bookmarks found"
+    no_results_message: "Try adjusting your search terms or browse different categories."
+    
+    # Categories
+    categories:
+      design: "Design"
+      development: "Development"
+      inspiration: "Inspiration"
+      tools: "Tools"
+      resources: "Resources"
+      photography: "Photography"
+      ui: "UI/UX"
+      frontend: "Frontend"
+      backend: "Backend"
+      mobile: "Mobile"
+      web: "Web"
+      graphics: "Graphics"
+      animation: "Animation"
+      productivity: "Productivity"
+      learning: "Learning"
+      news: "News"
+      portfolio: "Portfolio"
+      agency: "Agency"
+      startup: "Startup"
+      ecommerce: "E-commerce"
+    
+    # Sorting options
+    sort:
+      recent: "Most Recent"
+      popular: "Most Popular"
+      liked: "Most Liked"
+      alphabetical: "Alphabetical"
+    
+    # Error messages
+    errors:
+      not_found: "Bookmark not found"
+      load_failed: "Failed to load bookmarks"
+      network_error: "Network error occurred"

@@ -1,0 +1,78 @@
+# 书签中文翻译文件
+zh:
+  bookmarks:
+    # 页面标题和元信息
+    index_title: "书签收藏"
+    featured_title: "精选书签"
+    meta_description: "发现和探索我们精心策划的优秀网站、工具和资源集合。"
+    
+    # 副标题
+    index_subtitle: "发现为设计师和开发者精心策划的优秀网站、工具和资源。"
+    featured_subtitle: "精心挑选的最具启发性和实用性的网站集合。"
+    
+    # 导航和操作
+    total_bookmarks: "总书签数"
+    categories: "分类"
+    search_placeholder: "搜索书签、标签或分类..."
+    all_categories: "全部"
+    clear_search: "清除搜索"
+    load_more: "加载更多"
+    loading: "正在加载书签..."
+    
+    # 书签操作
+    view_details: "查看详情"
+    visit_site: "访问网站"
+    visit_website: "访问网站"
+    like: "点赞"
+    share: "分享"
+    featured: "精选"
+    
+    # 统计信息
+    views: "浏览量"
+    likes: "点赞数"
+    added: "添加时间"
+    statistics: "统计信息"
+    
+    # 内容
+    tags: "标签"
+    related_bookmarks: "相关书签"
+    
+    # 空状态
+    no_results_title: "未找到书签"
+    no_results_message: "请尝试调整搜索词或浏览不同的分类。"
+    
+    # 分类
+    categories:
+      design: "设计"
+      development: "开发"
+      inspiration: "灵感"
+      tools: "工具"
+      resources: "资源"
+      photography: "摄影"
+      ui: "界面设计"
+      frontend: "前端"
+      backend: "后端"
+      mobile: "移动端"
+      web: "网页"
+      graphics: "图形"
+      animation: "动画"
+      productivity: "效率"
+      learning: "学习"
+      news: "新闻"
+      portfolio: "作品集"
+      agency: "机构"
+      startup: "创业"
+      ecommerce: "电商"
+    
+    # 排序选项
+    sort:
+      recent: "最新"
+      popular: "最受欢迎"
+      liked: "最多点赞"
+      alphabetical: "字母顺序"
+    
+    # 错误信息
+    errors:
+      not_found: "未找到书签"
+      load_failed: "加载书签失败"
+      network_error: "网络错误"

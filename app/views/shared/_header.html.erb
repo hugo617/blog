@@ -182,6 +182,48 @@
                 </div>
             </div>
 
+            <!-- Bookmarks 导航 - Bookmarks Navigation -->
+            <div class="nav-item dropdown-nav" data-dropdown-nav>
+                <button class="nav-link dropdown-trigger" data-dropdown-trigger>
+                    Bookmarks
+                    <svg class="nav-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="m6 9 6 6 6-6"/>
+                    </svg>
+                </button>
+                <div class="nav-dropdown" data-dropdown-menu>
+                    <div class="dropdown-content">
+                        <%= link_to bookmarks_path, class: "dropdown-item" do %>
+                            <div class="dropdown-icon">📚</div>
+                            <div class="dropdown-text">
+                                <span class="dropdown-title">All Bookmarks</span>
+                                <span class="dropdown-desc">Browse our complete collection</span>
+                            </div>
+                        <% end %>
+                        <%= link_to featured_bookmarks_path, class: "dropdown-item" do %>
+                            <div class="dropdown-icon">⭐</div>
+                            <div class="dropdown-text">
+                                <span class="dropdown-title">Featured</span>
+                                <span class="dropdown-desc">Hand-picked favorites</span>
+                            </div>
+                        <% end %>
+                        <%= link_to bookmarks_path(category: 'design'), class: "dropdown-item" do %>
+                            <div class="dropdown-icon">🎨</div>
+                            <div class="dropdown-text">
+                                <span class="dropdown-title">Design</span>
+                                <span class="dropdown-desc">Creative inspiration</span>
+                            </div>
+                        <% end %>
+                        <%= link_to bookmarks_path(category: 'development'), class: "dropdown-item" do %>
+                            <div class="dropdown-icon">💻</div>
+                            <div class="dropdown-text">
+                                <span class="dropdown-title">Development</span>
+                                <span class="dropdown-desc">Coding resources</span>
+                            </div>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+
             <!-- Pricing 单独链接 - Pricing Single Link -->
             <div class="nav-item">
                 <%= link_to "#pricing", class: "nav-link" do %>

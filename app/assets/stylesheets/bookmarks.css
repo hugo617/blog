@@ -1,0 +1,933 @@
+/* ===== 书签展示页面样式 - BOOKMARKS SHOWCASE STYLES ===== */
+
+/* 页面容器 - Page Container */
+.bookmarks-page {
+    min-height: 100vh;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* ===== 页面头部 - PAGE HEADER ===== */
+
+.bookmarks-header {
+    background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-secondary) 100%);
+    border-bottom: 1px solid var(--border-color);
+    padding: var(--space-8) 0 var(--space-6);
+    position: relative;
+    overflow: hidden;
+}
+
+.bookmarks-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(99,102,241,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    opacity: 0.3;
+}
+
+.bookmarks-hero {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--space-8);
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.bookmarks-hero-content {
+    max-width: 600px;
+}
+
+.bookmarks-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: var(--space-4);
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.bookmarks-subtitle {
+    font-size: var(--font-size-lg);
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: var(--space-6);
+}
+
+.bookmarks-stats {
+    display: flex;
+    gap: var(--space-6);
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--accent-primary);
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: var(--space-1);
+}
+
+.bookmarks-hero-animation {
+    width: 300px;
+    height: 200px;
+}
+
+.lottie-animation {
+    width: 100%;
+    height: 100%;
+}
+
+/* ===== 搜索和过滤器 - SEARCH AND FILTERS ===== */
+
+.bookmarks-controls {
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border-color);
+    padding: var(--space-6) 0;
+    position: sticky;
+    top: 80px; /* 头部导航高度 */
+    z-index: 50;
+    backdrop-filter: blur(10px);
+}
+
+.controls-wrapper {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--space-6);
+    align-items: center;
+}
+
+/* 搜索区域 - Search Section */
+.search-section {
+    flex: 1;
+}
+
+.search-box-wrapper {
+    position: relative;
+}
+
+.search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: var(--bg-primary);
+    border: 2px solid var(--border-color);
+    border-radius: 16px;
+    padding: var(--space-3) var(--space-4);
+    transition: all var(--anim-normal) ease;
+    max-width: 500px;
+}
+
+.search-box:focus-within {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+    transform: translateY(-2px);
+}
+
+.search-icon {
+    color: var(--text-muted);
+    margin-right: var(--space-3);
+    flex-shrink: 0;
+}
+
+.search-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: var(--font-size-base);
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.search-input::placeholder {
+    color: var(--text-muted);
+}
+
+.search-clear {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: var(--bg-secondary);
+    border: none;
+    border-radius: 8px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all var(--anim-fast) ease;
+    margin-left: var(--space-2);
+}
+
+.search-clear:hover {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    transform: scale(1.1);
+}
+
+.search-results-info {
+    margin-top: var(--space-2);
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    display: none;
+}
+
+/* 过滤器区域 - Filters Section */
+.filters-section {
+    display: flex;
+    gap: var(--space-4);
+    align-items: center;
+}
+
+.category-filters {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-2) var(--space-3);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--anim-normal) ease;
+    white-space: nowrap;
+}
+
+.filter-btn:hover {
+    background: var(--bg-primary);
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+    transform: translateY(-1px);
+}
+
+.filter-btn.active {
+    background: var(--accent-gradient);
+    border-color: var(--accent-primary);
+    color: white;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.filter-count {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+}
+
+.sort-select {
+    padding: var(--space-2) var(--space-3);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    transition: all var(--anim-normal) ease;
+}
+
+.sort-select:hover {
+    border-color: var(--accent-primary);
+}
+
+/* ===== 书签网格 - BOOKMARKS GRID ===== */
+
+.bookmarks-content {
+    padding: var(--space-8) 0;
+}
+
+.loading-container {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-8);
+    text-align: center;
+}
+
+.loading-container p {
+    margin-top: var(--space-4);
+    color: var(--text-secondary);
+    font-size: var(--font-size-lg);
+}
+
+.bookmarks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: var(--space-6);
+    margin-bottom: var(--space-8);
+}
+
+/* 书签卡片 - Bookmark Card */
+.bookmark-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all var(--anim-normal) var(--ease-out-quart);
+    position: relative;
+    height: fit-content;
+}
+
+.bookmark-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    border-color: var(--primary-color, var(--accent-primary));
+}
+
+.bookmark-card.filtered-out {
+    opacity: 0.3;
+    transform: scale(0.95);
+    pointer-events: none;
+}
+
+/* 书签图片 - Bookmark Image */
+.bookmark-image {
+    position: relative;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    background: var(--bg-secondary);
+}
+
+.image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.bookmark-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--anim-normal) ease;
+}
+
+.bookmark-card:hover .bookmark-img {
+    transform: scale(1.05);
+}
+
+.featured-badge {
+    position: absolute;
+    top: var(--space-3);
+    right: var(--space-3);
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-1) var(--space-2);
+    background: var(--accent-gradient);
+    color: white;
+    border-radius: 8px;
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.featured-badge.large {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--font-size-sm);
+}
+
+/* 悬停覆盖层 - Hover Overlay */
+.bookmark-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all var(--anim-normal) ease;
+}
+
+.bookmark-card:hover .bookmark-overlay {
+    opacity: 1;
+}
+
+.overlay-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    align-items: center;
+}
+
+.overlay-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    border: none;
+    border-radius: 12px;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--anim-fast) ease;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.overlay-btn.primary {
+    background: var(--accent-gradient);
+    color: white;
+}
+
+.overlay-btn.secondary {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    backdrop-filter: blur(10px);
+}
+
+.overlay-btn:hover {
+    transform: translateY(-2px) scale(1.05);
+}
+
+/* 书签内容 - Bookmark Content */
+.bookmark-content {
+    padding: var(--space-4);
+}
+
+.bookmark-category {
+    margin-bottom: var(--space-3);
+}
+
+.category-tag {
+    display: inline-block;
+    padding: var(--space-1) var(--space-3);
+    background: var(--accent-gradient);
+    color: white;
+    border-radius: 20px;
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.category-tag.large {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--font-size-sm);
+}
+
+.bookmark-info {
+    margin-bottom: var(--space-4);
+}
+
+.bookmark-title {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: var(--space-2);
+    color: var(--text-primary);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.bookmark-description {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: var(--space-3);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.bookmark-domain {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.bookmark-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1);
+    margin-bottom: var(--space-4);
+}
+
+.tag {
+    padding: 4px 8px;
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    border-radius: 6px;
+    font-size: var(--font-size-xs);
+    font-weight: 500;
+}
+
+.tag.large {
+    padding: var(--space-1) var(--space-2);
+    font-size: var(--font-size-sm);
+}
+
+.tag-more {
+    padding: 4px 8px;
+    background: var(--accent-primary);
+    color: white;
+    border-radius: 6px;
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+}
+
+.bookmark-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--border-color);
+}
+
+.bookmark-stats .stat-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+}
+
+.bookmark-stats .stat-item svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* ===== 空状态 - EMPTY STATE ===== */
+
+.empty-state {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-12);
+    text-align: center;
+}
+
+.empty-state h3 {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    margin: var(--space-4) 0 var(--space-2);
+    color: var(--text-primary);
+}
+
+.empty-state p {
+    font-size: var(--font-size-base);
+    color: var(--text-secondary);
+    margin-bottom: var(--space-6);
+    max-width: 400px;
+}
+
+/* ===== 加载更多 - LOAD MORE ===== */
+
+.load-more-container {
+    text-align: center;
+    padding: var(--space-6) 0;
+}
+
+.load-more-btn {
+    padding: var(--space-3) var(--space-6);
+    font-size: var(--font-size-base);
+    font-weight: 600;
+}
+
+/* ===== 响应式设计 - RESPONSIVE DESIGN ===== */
+
+@media (max-width: 1024px) {
+    .bookmarks-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: var(--space-4);
+    }
+    
+    .controls-wrapper {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+    }
+    
+    .filters-section {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--space-3);
+    }
+}
+
+@media (max-width: 768px) {
+    .bookmarks-hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: var(--space-6);
+    }
+
+    .bookmarks-hero-animation {
+        width: 200px;
+        height: 150px;
+        margin: 0 auto;
+    }
+
+    .bookmarks-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+    }
+
+    .bookmarks-stats {
+        justify-content: center;
+    }
+
+    .category-filters {
+        justify-content: center;
+    }
+
+    .search-box {
+        max-width: none;
+    }
+}
+
+/* ===== 书签模态 - BOOKMARK MODAL ===== */
+
+.bookmark-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--anim-normal) ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-4);
+}
+
+.bookmark-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: var(--bg-card);
+    border-radius: 24px;
+    max-width: 800px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    transform: scale(0.9) translateY(20px);
+    transition: all var(--anim-normal) var(--ease-out-quart);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+}
+
+.bookmark-modal.active .modal-content {
+    transform: scale(1) translateY(0);
+}
+
+.modal-close {
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-4);
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--anim-fast) ease;
+    z-index: 10;
+}
+
+.modal-close:hover {
+    background: rgba(0, 0, 0, 0.7);
+    transform: scale(1.1);
+}
+
+/* 模态头部 - Modal Header */
+.modal-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+    padding: var(--space-6);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal-image {
+    position: relative;
+    aspect-ratio: 16/10;
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--bg-secondary);
+}
+
+.modal-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.modal-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.modal-category {
+    margin-bottom: var(--space-3);
+}
+
+.modal-title {
+    font-size: var(--font-size-2xl);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: var(--space-3);
+    color: var(--text-primary);
+}
+
+.modal-description {
+    font-size: var(--font-size-base);
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: var(--space-4);
+}
+
+.modal-domain {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-bottom: var(--space-6);
+}
+
+.modal-actions {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+}
+
+.btn-primary.large,
+.btn-secondary.large {
+    padding: var(--space-3) var(--space-5);
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    text-decoration: none;
+    transition: all var(--anim-normal) ease;
+}
+
+.btn-primary.large {
+    background: var(--accent-gradient);
+    color: white;
+    border: none;
+}
+
+.btn-secondary.large {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.btn-primary.large:hover,
+.btn-secondary.large:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* 模态内容 - Modal Content */
+.modal-body {
+    padding: var(--space-6);
+}
+
+.modal-section {
+    margin-bottom: var(--space-6);
+}
+
+.modal-section:last-child {
+    margin-bottom: 0;
+}
+
+.section-title {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    margin-bottom: var(--space-4);
+    color: var(--text-primary);
+}
+
+.modal-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+}
+
+.modal-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--space-4);
+}
+
+.stat-card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    transition: all var(--anim-normal) ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--accent-gradient);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    flex-shrink: 0;
+}
+
+.stat-content {
+    flex: 1;
+}
+
+.stat-card .stat-number {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1;
+    margin-bottom: var(--space-1);
+}
+
+.stat-card .stat-label {
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* 相关书签 - Related Bookmarks */
+.related-bookmarks {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-4);
+}
+
+.related-bookmark {
+    display: flex;
+    gap: var(--space-3);
+    padding: var(--space-3);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all var(--anim-normal) ease;
+}
+
+.related-bookmark:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    border-color: var(--accent-primary);
+}
+
+.related-img {
+    width: 60px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.related-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.related-title {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--space-1);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.related-domain {
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+}
+
+/* 模态响应式 - Modal Responsive */
+@media (max-width: 768px) {
+    .modal-header {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+    }
+
+    .modal-actions {
+        flex-direction: column;
+    }
+
+    .modal-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .related-bookmarks {
+        grid-template-columns: 1fr;
+    }
+
+    .bookmark-modal {
+        padding: var(--space-2);
+    }
+
+    .modal-content {
+        max-height: 95vh;
+    }
+}

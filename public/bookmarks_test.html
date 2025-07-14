@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookmarks Collection - AURORA Blog</title>
+    <meta name="description" content="Discover and explore our curated collection of amazing websites, tools, and resources.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="bookmarks.css">
+    
+    <!-- Lottie Player -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+</head>
+<body class="light-theme">
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo -->
+                <div class="header-logo">
+                    <a href="/" class="logo-link">
+                        <div class="logo-icon">
+                            <div class="logo-gradient"></div>
+                            <span class="logo-text">A</span>
+                        </div>
+                        <span class="logo-name">AURORA</span>
+                    </a>
+                </div>
+                
+                <!-- Navigation -->
+                <nav class="header-nav">
+                    <div class="nav-item">
+                        <a href="/" class="nav-link">Home</a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="/posts" class="nav-link">Blog</a>
+                    </div>
+                    <div class="nav-item dropdown-nav active">
+                        <button class="nav-link dropdown-trigger">
+                            Bookmarks
+                            <svg class="nav-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="m6 9 6 6 6-6"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="nav-item">
+                        <a href="#" class="nav-link">Contact</a>
+                    </div>
+                </nav>
+                
+                <!-- Header Actions -->
+                <div class="header-actions">
+                    <!-- Search Box -->
+                    <div class="search-container-inline" data-search-container>
+                        <svg class="search-icon-inline" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="m21 21-4.35-4.35"/>
+                        </svg>
+                        <input type="text" class="search-input-inline" placeholder="Search for animations..." data-search-input>
+                        <div class="search-filter" data-search-filter>
+                            <span>Free & Premium</span>
+                            <svg class="search-filter-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="m6 9 6 6 6-6"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <!-- Language Selector -->
+                    <div class="language-selector-lottie" data-language-selector>
+                        <button class="language-trigger-lottie" aria-expanded="false">
+                            <span class="language-icon-lottie">🌐</span>
+                            <span class="language-code-lottie" data-current-lang>En</span>
+                            <svg class="language-arrow-lottie" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="m6 9 6 6 6-6"/>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="auth-buttons">
+                        <a href="#" class="btn-secondary">Sign In</a>
+                        <a href="#" class="btn-primary">Sign Up</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="bookmarks-page" data-controller="bookmarks-grid">
+        <!-- Page Header -->
+        <div class="bookmarks-header">
+            <div class="container">
+                <div class="bookmarks-hero">
+                    <div class="bookmarks-hero-content">
+                        <h1 class="bookmarks-title">Bookmark Collection</h1>
+                        <p class="bookmarks-subtitle">Discover amazing websites, tools, and resources curated for designers and developers.</p>
+                        
+                        <div class="bookmarks-stats">
+                            <div class="stat-item">
+                                <span class="stat-number" data-bookmarks-grid-target="totalCount">12</span>
+                                <span class="stat-label">Total Bookmarks</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">5</span>
+                                <span class="stat-label">Categories</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bookmarks-hero-animation">
+                        <div id="bookmarks-hero-lottie" class="lottie-animation"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Search and Filters -->
+        <div class="bookmarks-controls">
+            <div class="container">
+                <div class="controls-wrapper">
+                    <div class="search-section">
+                        <div class="search-box-wrapper">
+                            <div class="search-box" data-bookmarks-grid-target="searchBox">
+                                <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="11" cy="11" r="8"/>
+                                    <path d="m21 21-4.35-4.35"/>
+                                </svg>
+                                <input type="text" class="search-input" placeholder="Search bookmarks, tags, or categories..." data-bookmarks-grid-target="searchInput" data-action="input->bookmarks-grid#search">
+                                <button class="search-clear" data-bookmarks-grid-target="searchClear" data-action="click->bookmarks-grid#clearSearch" style="display: none;">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="search-results-info" data-bookmarks-grid-target="searchInfo" style="display: none;">
+                                <span data-bookmarks-grid-target="searchCount"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="filters-section">
+                        <div class="category-filters" data-bookmarks-grid-target="categoryFilters">
+                            <button class="filter-btn active" data-category="all" data-action="click->bookmarks-grid#filterByCategory">All</button>
+                            <button class="filter-btn" data-category="design" data-action="click->bookmarks-grid#filterByCategory">Design <span class="filter-count">3</span></button>
+                            <button class="filter-btn" data-category="development" data-action="click->bookmarks-grid#filterByCategory">Development <span class="filter-count">4</span></button>
+                            <button class="filter-btn" data-category="tools" data-action="click->bookmarks-grid#filterByCategory">Tools <span class="filter-count">3</span></button>
+                            <button class="filter-btn" data-category="inspiration" data-action="click->bookmarks-grid#filterByCategory">Inspiration <span class="filter-count">2</span></button>
+                        </div>
+                        
+                        <div class="sort-options">
+                            <select class="sort-select" data-bookmarks-grid-target="sortSelect" data-action="change->bookmarks-grid#sort">
+                                <option value="recent">Most Recent</option>
+                                <option value="popular">Most Popular</option>
+                                <option value="liked">Most Liked</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bookmarks Content -->
+        <div class="bookmarks-content">
+            <div class="container">
+                <!-- Loading Animation -->
+                <div class="loading-container" data-bookmarks-grid-target="loading" style="display: none;">
+                    <div id="bookmarks-loading-lottie" class="lottie-animation"></div>
+                    <p>Loading bookmarks...</p>
+                </div>
+                
+                <!-- Bookmarks Grid -->
+                <div class="bookmarks-grid" data-bookmarks-grid-target="grid">
+                    <!-- Sample Bookmark Cards -->
+                    <div class="bookmark-card" data-bookmark-id="1" data-category="design" data-tags="design inspiration portfolio ui ux" data-title="dribbble - discover the world's top designers" data-description="dribbble is the leading destination to find & showcase creative work" data-animation-delay="0" data-action="click->bookmarks-grid#openBookmark" style="--primary-color: #6366f1; --secondary-color: #a855f7;">
+                        <div class="bookmark-image">
+                            <div class="image-container">
+                                <img src="https://picsum.photos/400/250?random=1" alt="Dribbble" class="bookmark-img">
+                                <div class="featured-badge">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"></polygon>
+                                    </svg>
+                                    Featured
+                                </div>
+                                <div class="bookmark-overlay">
+                                    <div class="overlay-content">
+                                        <button class="overlay-btn primary">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                                <circle cx="12" cy="12" r="3"></circle>
+                                            </svg>
+                                            View Details
+                                        </button>
+                                        <button class="overlay-btn secondary" data-action="click->bookmarks-grid#visitSite" data-url="https://dribbble.com">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                                <polyline points="15,3 21,3 21,9"></polyline>
+                                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                                            </svg>
+                                            Visit Site
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bookmark-content">
+                            <div class="bookmark-category">
+                                <span class="category-tag" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">Design</span>
+                            </div>
+                            
+                            <div class="bookmark-info">
+                                <h3 class="bookmark-title">Dribbble - Discover the World's Top Designers</h3>
+                                <p class="bookmark-description">Dribbble is the leading destination to find & showcase creative work and home to the world's best design professionals.</p>
+                                <div class="bookmark-domain">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                                    </svg>
+                                    dribbble.com
+                                </div>
+                            </div>
+                            
+                            <div class="bookmark-tags">
+                                <span class="tag">#design</span>
+                                <span class="tag">#inspiration</span>
+                                <span class="tag">#portfolio</span>
+                                <span class="tag-more">+2</span>
+                            </div>
+                            
+                            <div class="bookmark-stats">
+                                <div class="stat-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg>
+                                    <span>2.5k</span>
+                                </div>
+                                <div class="stat-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                    </svg>
+                                    <span>189</span>
+                                </div>
+                                <div class="stat-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                        <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"></path>
+                                    </svg>
+                                    <span>2 days ago</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bookmark-animation-trigger"></div>
+                    </div>
+                    
+                    <!-- GitHub Card -->
+                    <div class="bookmark-card" data-bookmark-id="2" data-category="development" data-tags="code git development open-source collaboration" data-title="github - where the world builds software" data-description="github is where over 100 million developers shape the future of software" data-animation-delay="0.1" data-action="click->bookmarks-grid#openBookmark" style="--primary-color: #10b981; --secondary-color: #06b6d4;">
+                        <div class="bookmark-image">
+                            <div class="image-container">
+                                <img src="https://picsum.photos/400/250?random=2" alt="GitHub" class="bookmark-img">
+                                <div class="featured-badge">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"></polygon>
+                                    </svg>
+                                    Featured
+                                </div>
+                                <div class="bookmark-overlay">
+                                    <div class="overlay-content">
+                                        <button class="overlay-btn primary">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                                <circle cx="12" cy="12" r="3"></circle>
+                                            </svg>
+                                            View Details
+                                        </button>
+                                        <button class="overlay-btn secondary" data-action="click->bookmarks-grid#visitSite" data-url="https://github.com">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                                <polyline points="15,3 21,3 21,9"></polyline>
+                                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                                            </svg>
+                                            Visit Site
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bookmark-content">
+                            <div class="bookmark-category">
+                                <span class="category-tag" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">Development</span>
+                            </div>
+
+                            <div class="bookmark-info">
+                                <h3 class="bookmark-title">GitHub - Where the world builds software</h3>
+                                <p class="bookmark-description">GitHub is where over 100 million developers shape the future of software, together.</p>
+                                <div class="bookmark-domain">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                                    </svg>
+                                    github.com
+                                </div>
+                            </div>
+
+                            <div class="bookmark-tags">
+                                <span class="tag">#code</span>
+                                <span class="tag">#git</span>
+                                <span class="tag">#development</span>
+                                <span class="tag-more">+2</span>
+                            </div>
+
+                            <div class="bookmark-stats">
+                                <div class="stat-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg>
+                                    <span>4.3k</span>
+                                </div>
+                                <div class="stat-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                    </svg>
+                                    <span>298</span>
+                                </div>
+                                <div class="stat-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                        <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"></path>
+                                    </svg>
+                                    <span>1 day ago</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bookmark-animation-trigger"></div>
+                    </div>
+
+                    <!-- Figma Card -->
+                    <div class="bookmark-card" data-bookmark-id="3" data-category="tools" data-tags="design prototyping collaboration ui ux" data-title="figma - collaborative design tool" data-description="figma is a collaborative web application for interface design" data-animation-delay="0.2" data-action="click->bookmarks-grid#openBookmark" style="--primary-color: #8b5cf6; --secondary-color: #ec4899;">
+                        <div class="bookmark-image">
+                            <div class="image-container">
+                                <img src="https://picsum.photos/400/250?random=3" alt="Figma" class="bookmark-img">
+                                <div class="featured-badge">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"></polygon>
+                                    </svg>
+                                    Featured
+                                </div>
+                                <div class="bookmark-overlay">
+                                    <div class="overlay-content">
+                                        <button class="overlay-btn primary">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                                <circle cx="12" cy="12" r="3"></circle>
+                                            </svg>
+                                            View Details
+                                        </button>
+                                        <button class="overlay-btn secondary" data-action="click->bookmarks-grid#visitSite" data-url="https://figma.com">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                                <polyline points="15,3 21,3 21,9"></polyline>
+                                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                                            </svg>
+                                            Visit Site
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bookmark-content">
+                            <div class="bookmark-category">
+                                <span class="category-tag" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">Tools</span>
+                            </div>
+
+                            <div class="bookmark-info">
+                                <h3 class="bookmark-title">Figma - Collaborative Design Tool</h3>
+                                <p class="bookmark-description">Figma is a collaborative web application for interface design, with additional offline features enabled by desktop applications.</p>
+                                <div class="bookmark-domain">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                                    </svg>
+                                    figma.com
+                                </div>
+                            </div>
+
+                            <div class="bookmark-tags">
+                                <span class="tag">#design</span>
+                                <span class="tag">#prototyping</span>
+                                <span class="tag">#collaboration</span>
+                                <span class="tag-more">+2</span>
+                            </div>
+
+                            <div class="bookmark-stats">
+                                <div class="stat-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg>
+                                    <span>2.9k</span>
+                                </div>
+                                <div class="stat-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                    </svg>
+                                    <span>201</span>
+                                </div>
+                                <div class="stat-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                        <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"></path>
+                                    </svg>
+                                    <span>3 days ago</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bookmark-animation-trigger"></div>
+                    </div>
+
+                    <!-- Awwwards Card -->
+                    <div class="bookmark-card" data-bookmark-id="4" data-category="inspiration" data-tags="awards websites inspiration design development" data-title="awwwards - website awards" data-description="awwwards are the website awards that recognize and promote talent" data-animation-delay="0.3" data-action="click->bookmarks-grid#openBookmark" style="--primary-color: #f59e0b; --secondary-color: #ef4444;">
+                        <div class="bookmark-image">
+                            <div class="image-container">
+                                <img src="https://picsum.photos/400/250?random=4" alt="Awwwards" class="bookmark-img">
+                                <div class="featured-badge">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"></polygon>
+                                    </svg>
+                                    Featured
+                                </div>
+                                <div class="bookmark-overlay">
+                                    <div class="overlay-content">
+                                        <button class="overlay-btn primary">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                                <circle cx="12" cy="12" r="3"></circle>
+                                            </svg>
+                                            View Details
+                                        </button>
+                                        <button class="overlay-btn secondary" data-action="click->bookmarks-grid#visitSite" data-url="https://awwwards.com">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                                <polyline points="15,3 21,3 21,9"></polyline>
+                                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                                            </svg>
+                                            Visit Site
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bookmark-content">
+                            <div class="bookmark-category">
+                                <span class="category-tag" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">Inspiration</span>
+                            </div>
+
+                            <div class="bookmark-info">
+                                <h3 class="bookmark-title">Awwwards - Website Awards</h3>
+                                <p class="bookmark-description">Awwwards are the Website Awards that recognize and promote the talent and effort of the best developers, designers and web agencies in the world.</p>
+                                <div class="bookmark-domain">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                                    </svg>
+                                    awwwards.com
+                                </div>
+                            </div>
+
+                            <div class="bookmark-tags">
+                                <span class="tag">#awards</span>
+                                <span class="tag">#websites</span>
+                                <span class="tag">#inspiration</span>
+                                <span class="tag-more">+2</span>
+                            </div>
+
+                            <div class="bookmark-stats">
+                                <div class="stat-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg>
+                                    <span>3.2k</span>
+                                </div>
+                                <div class="stat-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                    </svg>
+                                    <span>234</span>
+                                </div>
+                                <div class="stat-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                        <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"></path>
+                                    </svg>
+                                    <span>5 days ago</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bookmark-animation-trigger"></div>
+                    </div>
+
+                    <!-- CodePen Card -->
+                    <div class="bookmark-card" data-bookmark-id="5" data-category="development" data-tags="code frontend html css javascript" data-title="codepen - online code editor" data-description="an online code editor, learning environment, and community for front-end web development" data-animation-delay="0.4" data-action="click->bookmarks-grid#openBookmark" style="--primary-color: #10b981; --secondary-color: #06b6d4;">
+                        <div class="bookmark-image">
+                            <div class="image-container">
+                                <img src="https://picsum.photos/400/250?random=5" alt="CodePen" class="bookmark-img">
+                                <div class="bookmark-overlay">
+                                    <div class="overlay-content">
+                                        <button class="overlay-btn primary">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                                <circle cx="12" cy="12" r="3"></circle>
+                                            </svg>
+                                            View Details
+                                        </button>
+                                        <button class="overlay-btn secondary" data-action="click->bookmarks-grid#visitSite" data-url="https://codepen.io">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                                <polyline points="15,3 21,3 21,9"></polyline>
+                                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                                            </svg>
+                                            Visit Site
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bookmark-content">
+                            <div class="bookmark-category">
+                                <span class="category-tag" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">Development</span>
+                            </div>
+
+                            <div class="bookmark-info">
+                                <h3 class="bookmark-title">CodePen - Online Code Editor</h3>
+                                <p class="bookmark-description">An online code editor, learning environment, and community for front-end web development.</p>
+                                <div class="bookmark-domain">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                                    </svg>
+                                    codepen.io
+                                </div>
+                            </div>
+
+                            <div class="bookmark-tags">
+                                <span class="tag">#code</span>
+                                <span class="tag">#frontend</span>
+                                <span class="tag">#html</span>
+                                <span class="tag-more">+2</span>
+                            </div>
+
+                            <div class="bookmark-stats">
+                                <div class="stat-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg>
+                                    <span>1.6k</span>
+                                </div>
+                                <div class="stat-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                    </svg>
+                                    <span>87</span>
+                                </div>
+                                <div class="stat-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                        <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"></path>
+                                    </svg>
+                                    <span>1 week ago</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bookmark-animation-trigger"></div>
+                    </div>
+
+                    <!-- Behance Card -->
+                    <div class="bookmark-card" data-bookmark-id="6" data-category="design" data-tags="portfolio creative design photography" data-title="behance - creative portfolios" data-description="showcase and discover creative work on the world's leading online platform" data-animation-delay="0.5" data-action="click->bookmarks-grid#openBookmark" style="--primary-color: #6366f1; --secondary-color: #a855f7;">
+                        <div class="bookmark-image">
+                            <div class="image-container">
+                                <img src="https://picsum.photos/400/250?random=6" alt="Behance" class="bookmark-img">
+                                <div class="featured-badge">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"></polygon>
+                                    </svg>
+                                    Featured
+                                </div>
+                                <div class="bookmark-overlay">
+                                    <div class="overlay-content">
+                                        <button class="overlay-btn primary">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                                <circle cx="12" cy="12" r="3"></circle>
+                                            </svg>
+                                            View Details
+                                        </button>
+                                        <button class="overlay-btn secondary" data-action="click->bookmarks-grid#visitSite" data-url="https://behance.net">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                                <polyline points="15,3 21,3 21,9"></polyline>
+                                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                                            </svg>
+                                            Visit Site
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bookmark-content">
+                            <div class="bookmark-category">
+                                <span class="category-tag" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">Design</span>
+                            </div>
+
+                            <div class="bookmark-info">
+                                <h3 class="bookmark-title">Behance - Creative Portfolios</h3>
+                                <p class="bookmark-description">Showcase and discover creative work on the world's leading online platform for creative industries.</p>
+                                <div class="bookmark-domain">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                                    </svg>
+                                    behance.net
+                                </div>
+                            </div>
+
+                            <div class="bookmark-tags">
+                                <span class="tag">#portfolio</span>
+                                <span class="tag">#creative</span>
+                                <span class="tag">#design</span>
+                                <span class="tag-more">+1</span>
+                            </div>
+
+                            <div class="bookmark-stats">
+                                <div class="stat-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg>
+                                    <span>1.8k</span>
+                                </div>
+                                <div class="stat-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                    </svg>
+                                    <span>142</span>
+                                </div>
+                                <div class="stat-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                        <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"></path>
+                                    </svg>
+                                    <span>4 days ago</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bookmark-animation-trigger"></div>
+                    </div>
+                </div>
+                
+                <!-- Empty State -->
+                <div class="empty-state" data-bookmarks-grid-target="emptyState" style="display: none;">
+                    <div id="bookmarks-empty-lottie" class="lottie-animation"></div>
+                    <h3>No bookmarks found</h3>
+                    <p>Try adjusting your search terms or browse different categories.</p>
+                    <button class="btn-primary" data-action="click->bookmarks-grid#clearSearch">Clear Search</button>
+                </div>
+                
+                <!-- Load More -->
+                <div class="load-more-container" data-bookmarks-grid-target="loadMore">
+                    <button class="btn-secondary load-more-btn" data-action="click->bookmarks-grid#loadMore">Load More</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="lottie_bookmarks.js"></script>
+    <script src="controllers/bookmarks_grid_controller.js"></script>
+    <script>
+        // Initialize the bookmarks grid controller
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simple implementation for testing
+            const searchInput = document.querySelector('[data-bookmarks-grid-target="searchInput"]');
+            const searchClear = document.querySelector('[data-bookmarks-grid-target="searchClear"]');
+            const searchInfo = document.querySelector('[data-bookmarks-grid-target="searchInfo"]');
+            const searchCount = document.querySelector('[data-bookmarks-grid-target="searchCount"]');
+            const cards = document.querySelectorAll('.bookmark-card');
+            
+            function updateSearch() {
+                const query = searchInput.value.trim().toLowerCase();
+                let visibleCount = 0;
+                
+                cards.forEach(card => {
+                    const title = card.dataset.title || '';
+                    const description = card.dataset.description || '';
+                    const tags = card.dataset.tags || '';
+                    
+                    const searchText = `${title} ${description} ${tags}`.toLowerCase();
+                    const isMatch = !query || searchText.includes(query);
+                    
+                    if (isMatch) {
+                        card.style.display = 'block';
+                        card.style.opacity = '1';
+                        card.style.transform = 'scale(1)';
+                        visibleCount++;
+                    } else {
+                        card.style.opacity = '0.3';
+                        card.style.transform = 'scale(0.95)';
+                    }
+                });
+                
+                // Update search info
+                if (query) {
+                    searchClear.style.display = 'flex';
+                    searchInfo.style.display = 'block';
+                    searchCount.textContent = `Found ${visibleCount} results for "${query}"`;
+                } else {
+                    searchClear.style.display = 'none';
+                    searchInfo.style.display = 'none';
+                }
+            }
+            
+            searchInput.addEventListener('input', updateSearch);
+            searchClear.addEventListener('click', function() {
+                searchInput.value = '';
+                updateSearch();
+                searchInput.focus();
+            });
+            
+            // Category filtering
+            document.querySelectorAll('[data-category]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const category = this.dataset.category;
+                    
+                    // Update active button
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Filter cards
+                    cards.forEach(card => {
+                        const cardCategory = card.dataset.category;
+                        const isMatch = category === 'all' || cardCategory === category;
+                        
+                        if (isMatch) {
+                            card.style.display = 'block';
+                            card.style.opacity = '1';
+                            card.style.transform = 'scale(1)';
+                        } else {
+                            card.style.opacity = '0.3';
+                            card.style.transform = 'scale(0.95)';
+                        }
+                    });
+                });
+            });
+            
+            // Animate cards on load
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px) scale(0.95)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0) scale(1)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>

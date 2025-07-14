@@ -23,6 +23,18 @@ Rails.application.routes.draw do
   # Tag routes
   resources :tags, only: [:index, :show], param: :slug
 
+  # Bookmarks routes - 收藏网址路由
+  resources :bookmarks, only: [:index, :show] do
+    collection do
+      get :featured
+      get :search
+    end
+    member do
+      patch :increment_views
+      patch :toggle_like
+    end
+  end
+
   # Admin routes (if needed)
   namespace :admin do
     resources :posts do
