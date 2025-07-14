@@ -1,0 +1,77 @@
+<!-- Post Card Partial for AURORA Design -->
+<!-- This partial represents a single blog post card in the masonry grid -->
+<!-- It includes 3D hover effects and smooth transitions -->
+
+<div class="work-card">
+    <div class="work-card-inner">
+        <!-- Post Image -->
+        <!-- Uses placeholder images from Picsum for demonstration -->
+        <% if post.respond_to?(:image_url) && post.image_url.present? %>
+            <%= image_tag post.image_url, alt: post.title, loading: "lazy" %>
+        <% else %>
+            <!-- Generate a consistent random image based on post ID -->
+            <%= image_tag "https://picsum.photos/400/#{[400, 500, 600, 450, 550, 650].sample}?random=#{post.id}", 
+                alt: post.title, loading: "lazy" %>
+        <% end %>
+        
+        <!-- Post Content -->
+        <div class="work-card-content">
+            <!-- Post Title -->
+            <h3 class="work-card-title">
+                <%= link_to post.title, post, style: "color: inherit; text-decoration: none;" %>
+            </h3>
+            
+            <!-- Post Description/Excerpt -->
+            <p class="work-card-description">
+                <% if post.excerpt.present? %>
+                    <%= truncate(post.excerpt, length: 150) %>
+                <% else %>
+                    <%= truncate(strip_tags(post.content.to_s), length: 150) %>
+                <% end %>
+            </p>
+            
+            <!-- Post Metadata -->
+            <div style="margin-bottom: var(--space-4); color: var(--text-muted); font-size: var(--font-size-sm);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-2);">
+                    <span>
+                        <%= l((post.published_at || post.created_at), format: :default) %>
+                    </span>
+                    <span><%= post.reading_time %> <%= t('posts.reading_time') %></span>
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span><%= t('posts.by_author') %> <%= post.user.email.split('@').first.capitalize %></span>
+                    <% if post.respond_to?(:views_count) && post.views_count %>
+                        <span><%= post.views_count %> <%= t('posts.views') %></span>
+                    <% end %>
+                </div>
+            </div>
+            
+            <!-- Post Tags -->
+            <div class="work-card-tags">
+                <% if post.tags.any? %>
+                    <% post.tags.limit(3).each do |tag| %>
+                        <%= link_to tag.name, posts_path(q: { tags_slug_eq: tag.slug }), 
+                            class: "work-tag", 
+                            style: "text-decoration: none;" %>
+                    <% end %>
+                <% else %>
+                    <span class="work-tag">Blog</span>
+                <% end %>
+            </div>
+            
+            <!-- Action Buttons (for authenticated users) -->
+            <% if user_signed_in? && (current_user == post.user || current_user.admin?) %>
+                <div style="margin-top: var(--space-4); padding-top: var(--space-4); border-top: 1px solid var(--border-color);">
+                    <div style="display: flex; gap: var(--space-2); font-size: var(--font-size-sm);">
+                        <%= link_to t('posts.edit'), edit_post_path(post),
+                            style: "color: var(--accent-primary); text-decoration: none; padding: var(--space-1) var(--space-2); border: 1px solid var(--accent-primary); border-radius: 4px; transition: all 0.2s ease;" %>
+                        <%= link_to t('posts.delete'), post_path(post), method: :delete,
+                            confirm: t('posts.confirm_delete'),
+                            style: "color: #ef4444; text-decoration: none; padding: var(--space-1) var(--space-2); border: 1px solid #ef4444; border-radius: 4px; transition: all 0.2s ease;" %>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    </div>
+</div>

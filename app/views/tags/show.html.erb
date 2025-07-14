@@ -1,0 +1,67 @@
+<div class="max-w-4xl mx-auto">
+  <div class="mb-8">
+    <nav class="text-sm text-gray-500 mb-4">
+      <%= link_to "All Tags", tags_path, class: "hover:text-gray-700" %> 
+      <span class="mx-2">›</span>
+      <span class="text-gray-900"><%= @tag.name.titleize %></span>
+    </nav>
+    
+    <h1 class="text-3xl font-bold text-gray-900 mb-2">
+      Posts tagged with "<%= @tag.name.titleize %>"
+    </h1>
+    
+    <% if @tag.description.present? %>
+      <p class="text-gray-600 mb-4"><%= @tag.description %></p>
+    <% end %>
+    
+    <p class="text-gray-500">
+      <%= pluralize(@tag.posts_count, 'post') %> found
+    </p>
+  </div>
+
+  <% if @posts.any? %>
+    <div class="space-y-6">
+      <% @posts.each do |post| %>
+        <% presenter = PostPresenter.new(post) %>
+        <article class="bg-white rounded-lg shadow-sm border p-6">
+          <div class="flex items-center text-sm text-gray-500 mb-3">
+            <span><%= presenter.author_name %></span>
+            <span class="mx-2">•</span>
+            <span><%= presenter.formatted_published_date %></span>
+            <span class="mx-2">•</span>
+            <span><%= presenter.reading_time_text %></span>
+          </div>
+          
+          <h2 class="text-2xl font-bold text-gray-900 mb-3">
+            <%= link_to post.title, post_path(post), class: "hover:text-blue-600" %>
+          </h2>
+          
+          <p class="text-gray-600 mb-4">
+            <%= presenter.excerpt_or_truncated_content %>
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <%= render TagListComponent.new(tags: post.tags, variant: :default, limit: 5) %>
+            
+            <div class="flex items-center space-x-4 text-sm text-gray-500">
+              <span><%= presenter.views_count_text %></span>
+              <span><%= presenter.comments_count_text %></span>
+            </div>
+          </div>
+        </article>
+      <% end %>
+
+      <!-- Pagination -->
+      <div class="flex justify-center mt-8">
+        <%= paginate @posts if respond_to?(:paginate) %>
+      </div>
+    </div>
+  <% else %>
+    <div class="text-center py-12">
+      <h3 class="text-lg font-medium text-gray-900 mb-2">No posts found</h3>
+      <p class="text-gray-500 mb-4">There are no published posts with this tag.</p>
+      <%= link_to "Browse all posts", posts_path, 
+                  class: "bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700" %>
+    </div>
+  <% end %>
+</div>

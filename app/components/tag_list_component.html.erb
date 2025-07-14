@@ -1,0 +1,11 @@
+<div class="tag-list">
+  <% displayed_tags.each do |tag| %>
+    <%= link_to tag.name, tag_path(tag.slug), class: tag_class %>
+  <% end %>
+  
+  <% if show_more_link? %>
+    <span class="text-sm text-gray-500">
+      +<%= remaining_count %> more
+    </span>
+  <% end %>
+</div>

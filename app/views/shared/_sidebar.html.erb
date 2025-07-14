@@ -1,0 +1,55 @@
+<!-- Sidebar Navigation component extracted from AURORA design -->
+<!-- This sidebar is hidden by default and slides in from the left when activated -->
+<!-- It uses CSS transforms and transitions for smooth animations -->
+<aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
+    <nav class="sidebar-nav">
+        <%= link_to "#home", data: { page: "home" } do %>
+            <%= t('navigation.home') %>
+        <% end %>
+        <%= link_to posts_path, data: { page: "work" } do %>
+            <%= t('navigation.work') %>
+        <% end %>
+        <%= link_to "#journal", data: { page: "journal" } do %>
+            <%= t('navigation.journal') %>
+        <% end %>
+        <%= link_to "#about", data: { page: "about" } do %>
+            <%= t('navigation.about') %>
+        <% end %>
+        <%= link_to "#contact", data: { page: "contact" } do %>
+            <%= t('navigation.contact') %>
+        <% end %>
+        
+        <!-- Authentication Links for Mobile -->
+        <% if user_signed_in? %>
+            <%= link_to new_post_path, data: { page: "new-post" } do %>
+                <%= t('navigation.new_post') %>
+            <% end %>
+            <%= link_to edit_user_registration_path, data: { page: "profile" } do %>
+                <%= t('navigation.profile') %>
+            <% end %>
+            <%= link_to destroy_user_session_path, method: :delete, data: { page: "sign-out" } do %>
+                <%= t('navigation.sign_out') %>
+            <% end %>
+        <% else %>
+            <%= link_to new_user_session_path, data: { page: "sign-in" } do %>
+                <%= t('navigation.sign_in') %>
+            <% end %>
+            <%= link_to new_user_registration_path, data: { page: "sign-up" } do %>
+                <%= t('navigation.sign_up') %>
+            <% end %>
+        <% end %>
+
+        <!-- 移动端语言切换 - Mobile Language Switch -->
+        <div style="margin-top: var(--space-6); padding-top: var(--space-6); border-top: 1px solid var(--border-color);">
+            <% if I18n.locale == :en %>
+                <%= link_to switch_locale_path(locale: :zh), data: { page: "language" } do %>
+                    中文
+                <% end %>
+            <% else %>
+                <%= link_to switch_locale_path(locale: :en), data: { page: "language" } do %>
+                    English
+                <% end %>
+            <% end %>
+        </div>
+    </nav>
+</aside>

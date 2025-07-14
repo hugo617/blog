@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reference 3: Interactive Masonry Grid</title>
+    <style>
+        body { background-color: #f0f2f5; font-family: sans-serif; }
+        .masonry-wrapper { padding: 3rem; max-width: 1400px; margin: auto; }
+        .masonry { column-count: 4; column-gap: 1.5rem; }
+        .masonry-item { perspective: 1000px; margin-bottom: 1.5rem; break-inside: avoid; opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .masonry-item.is-visible { opacity: 1; transform: translateY(0); }
+        .card { width: 100%; background: #fff; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.07); overflow: hidden; transform-style: preserve-3d; transition: transform 0.4s ease, box-shadow 0.4s ease; }
+        .card:hover { transform: scale(1.03); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
+        .card-inner { transition: transform 0.2s linear; }
+        .card img { display: block; width: 100%; }
+        .card-content { padding: 1rem 1.2rem; }
+        .card-content h3 { margin: 0 0 0.5rem; font-size: 1.1rem; }
+        .card-content p { margin: 0; color: #555; font-size: 0.9rem; }
+        @media (max-width: 1200px) { .masonry { column-count: 3; } }
+        @media (max-width: 768px) { .masonry { column-count: 2; } }
+        @media (max-width: 576px) { .masonry { column-count: 1; } }
+    </style>
+</head>
+<body>
+<div class="masonry-wrapper">
+    <div class="masonry" id="masonry-grid">
+        <!-- Items will be injected by JS for demonstration -->
+    </div>
+</div>
+<script>
+    const grid = document.getElementById('masonry-grid');
+    const itemsData = [
+        { img: '500/300', title: 'Alpine Light', desc: 'Capturing the first light over the mountains.' }, { img: '500/700', title: 'Metropolis', desc: 'The vertical life of a modern city.' },
+        { img: '500/450', title: 'Silent Forest', desc: 'A walk among ancient trees.' }, { img: '500/600', title: 'Ocean\'s Breath', desc: 'The raw power of the sea.' },
+        { img: '500/400', title: 'Desert Bloom', desc: 'Life finds a way in the arid landscape.' }, { img: '500/550', title: 'Street Art Stories', desc: 'Murals that speak volumes.' },
+        { img: '500/500', title: 'Minimalist Spaces', desc: 'Finding peace in simplicity.' }, { img: '500/650', title: 'Culinary Art', desc: 'When food becomes a masterpiece.' },
+    ];
+
+    // 1. Populate grid
+    let html = '';
+    itemsData.forEach((item, i) => {
+        html += `
+        <div class="masonry-item" style="transition-delay: ${i * 50}ms">
+            <div class="card">
+                <div class="card-inner">
+                    <img src="https://picsum.photos/${item.img}?random=${i}" alt="${item.title}">
+                    <div class="card-content"><h3>${item.title}</h3><p>${item.desc}</p></div>
+                </div>
+            </div>
+        </div>`;
+    });
+    grid.innerHTML = html;
+
+    // 2. Load-in animation
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.masonry-item').forEach(item => observer.observe(item));
+
+    // 3. 3D Tilt Effect
+    grid.addEventListener('mousemove', (e) => {
+        const card = e.target.closest('.card');
+        if (!card) return;
+        const inner = card.querySelector('.card-inner');
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const { width, height } = rect;
+        const rotateX = ((y / height) - 0.5) * -15;
+        const rotateY = ((x / width) - 0.5) * 15;
+        inner.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+    grid.addEventListener('mouseout', (e) => {
+        const card = e.target.closest('.card');
+        if (!card) return;
+        const inner = card.querySelector('.card-inner');
+        inner.style.transform = 'rotateX(0deg) rotateY(0deg)';
+    });
+</script>
+</body>
+</html>

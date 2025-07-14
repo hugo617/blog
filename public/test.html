@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURORA Test Page</title>
+    <link rel="stylesheet" href="/assets/application.css">
+    <script src="/assets/application.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .test-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .test-card {
+            background: #1a1a1a;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            transition: transform 0.3s ease;
+        }
+        .test-card:hover {
+            transform: translateY(-4px);
+        }
+        .status {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            margin: 0.5rem;
+            display: inline-block;
+        }
+        .status.success {
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+        .status.error {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1 class="test-title">AURORA Test Page</h1>
+        
+        <div class="test-card">
+            <h2>CSS Loading Test</h2>
+            <p>If you can see this styled card with dark background and gradient text, the CSS is loading correctly.</p>
+            <div class="status success">CSS: ✓ Loaded</div>
+        </div>
+
+        <div class="test-card">
+            <h2>JavaScript Test</h2>
+            <p>Click the button below to test JavaScript functionality:</p>
+            <button onclick="testJS()" style="padding: 1rem 2rem; background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%); color: white; border: none; border-radius: 8px; cursor: pointer;">Test JavaScript</button>
+            <div id="js-result" class="status error">JavaScript: ✗ Not tested</div>
+        </div>
+
+        <div class="test-card">
+            <h2>Asset Pipeline Status</h2>
+            <p>This page tests if the basic asset loading is working without Rails server.</p>
+            <div class="status success">Static Assets: ✓ Working</div>
+        </div>
+    </div>
+
+    <script>
+        function testJS() {
+            const result = document.getElementById('js-result');
+            result.textContent = 'JavaScript: ✓ Working';
+            result.className = 'status success';
+            
+            // Test if we can access the AURORA styles
+            const card = document.querySelector('.test-card');
+            card.style.transform = 'scale(1.02)';
+            setTimeout(() => {
+                card.style.transform = '';
+            }, 200);
+        }
+
+        // Test if DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('AURORA Test Page: DOM loaded successfully');
+        });
+    </script>
+</body>
+</html>

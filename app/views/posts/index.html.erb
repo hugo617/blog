@@ -1,0 +1,229 @@
+<!-- Hero Section -->
+<!-- This hero section creates the main visual impact with gradient text and call-to-action -->
+<section class="hero" id="home">
+    <div class="hero-content">
+        <h1 class="hero-title">
+            <%= t('hero.title_part1') %>
+            <span class="gradient-text"><%= t('hero.title_highlight') %></span>
+            <%= t('hero.title_part2') %>
+        </h1>
+        <p class="hero-subtitle">
+            <%= t('hero.subtitle') %>
+        </p>
+        <%= link_to "#work", class: "hero-cta" do %>
+            <%= t('hero.cta') %>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m9 18 6-6-6-6"/>
+            </svg>
+        <% end %>
+    </div>
+</section>
+
+<!-- Featured Work Section -->
+<!-- This section displays the blog posts in a Pinterest-style masonry grid -->
+<section class="featured-work" id="work">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title"><%= t('sections.featured_work.title') %></h2>
+            <p class="section-subtitle"><%= t('sections.featured_work.subtitle') %></p>
+        </div>
+
+        <!-- Search and Filter Controls -->
+        <% if user_signed_in? %>
+            <div style="text-align: center; margin-bottom: var(--space-8);">
+                <%= link_to new_post_path, class: "hero-cta", style: "display: inline-flex;" do %>
+                    <%= t('navigation.new_post') %>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 5v14M5 12h14"/>
+                    </svg>
+                <% end %>
+            </div>
+        <% end %>
+
+        <!-- Search Form styled to match AURORA design -->
+        <div style="max-width: 600px; margin: 0 auto var(--space-12);">
+            <%= search_form_for @q, local: true, style: "display: flex; gap: var(--space-4);" do |f| %>
+                <%= f.search_field :title_cont,
+                    placeholder: t('posts.search_placeholder'),
+                    style: "flex: 1; padding: var(--space-4); background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary); font-family: var(--font-primary);" %>
+                <%= f.submit t('posts.search_button'),
+                    style: "padding: var(--space-4) var(--space-6); background: var(--accent-gradient); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;" %>
+            <% end %>
+        </div>
+
+        <!-- Tags Filter -->
+        <% if @tags.any? %>
+            <div style="text-align: center; margin-bottom: var(--space-16);">
+                <h3 style="color: var(--text-primary); font-size: var(--font-size-lg); font-weight: 600; margin-bottom: var(--space-4);"><%= t('posts.filter_by_tags') %></h3>
+                <div style="display: flex; flex-wrap: wrap; gap: var(--space-2); justify-content: center;">
+                    <% @tags.each do |tag| %>
+                        <%= link_to tag.name, posts_path(q: { tags_slug_eq: tag.slug }),
+                            class: "work-tag",
+                            style: "text-decoration: none;" %>
+                    <% end %>
+                </div>
+            </div>
+        <% end %>
+
+        <!-- Masonry Grid for Posts -->
+        <!-- This grid uses CSS Grid with auto-fit to create a responsive masonry layout -->
+        <div class="masonry-grid" id="masonry-grid">
+            <% if @posts.any? %>
+                <% @posts.each_with_index do |post, index| %>
+                    <div class="masonry-item" style="transition-delay: <%= index * 100 %>ms">
+                        <%= render 'posts/post_card', post: post %>
+                    </div>
+                <% end %>
+            <% else %>
+                <!-- Empty State -->
+                <div style="grid-column: 1 / -1; text-align: center; padding: var(--space-20) var(--space-6);">
+                    <h3 style="color: var(--text-primary); font-size: var(--font-size-2xl); font-weight: 600; margin-bottom: var(--space-4);"><%= t('posts.no_posts_found') %></h3>
+                    <p style="color: var(--text-secondary); font-size: var(--font-size-lg); margin-bottom: var(--space-8);">
+                        <% if params[:q].present? %>
+                            <%= t('posts.no_posts_search') %>
+                        <% else %>
+                            <%= t('posts.no_posts_empty') %>
+                        <% end %>
+                    </p>
+                    <% if user_signed_in? %>
+                        <%= link_to t('posts.create_post'), new_post_path, class: "hero-cta" %>
+                    <% end %>
+                </div>
+            <% end %>
+        </div>
+
+        <!-- Pagination -->
+        <% if respond_to?(:paginate) && @posts.respond_to?(:current_page) %>
+            <div style="margin-top: var(--space-16); text-align: center;">
+                <%= paginate @posts %>
+            </div>
+        <% end %>
+    </div>
+</section>
+
+<!-- Journal Section -->
+<!-- This section shows recent blog posts in a different layout style -->
+<section class="journal-section" id="journal">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Journal</h2>
+            <p class="section-subtitle">Thoughts, insights, and stories from my creative journey</p>
+        </div>
+
+        <div class="journal-grid">
+            <% recent_posts = @posts.limit(3) %>
+            <% recent_posts.each_with_index do |post, index| %>
+                <article class="journal-card <%= 'featured' if index == 0 %>">
+                    <div class="journal-image">
+                        <% if post.respond_to?(:image_url) && post.image_url.present? %>
+                            <%= image_tag post.image_url, alt: post.title, loading: "lazy" %>
+                        <% else %>
+                            <%= image_tag "https://picsum.photos/600/400?random=#{post.id}", alt: post.title, loading: "lazy" %>
+                        <% end %>
+                    </div>
+                    <div class="journal-content">
+                        <% if post.tags.any? %>
+                            <span class="journal-category"><%= post.tags.first.name %></span>
+                        <% else %>
+                            <span class="journal-category">Blog</span>
+                        <% end %>
+                        <h3 class="journal-title">
+                            <%= link_to post.title, post, style: "color: inherit; text-decoration: none;" %>
+                        </h3>
+                        <% if post.excerpt.present? %>
+                            <p class="journal-excerpt"><%= truncate(post.excerpt, length: 120) %></p>
+                        <% end %>
+                        <div class="journal-meta">
+                            <time datetime="<%= post.published_at&.iso8601 || post.created_at.iso8601 %>">
+                                <%= l((post.published_at || post.created_at), format: :default) %>
+                            </time>
+                            <span class="read-time"><%= post.reading_time %> <%= t('posts.reading_time') %></span>
+                        </div>
+                    </div>
+                </article>
+            <% end %>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="about-section" id="about">
+    <div class="container">
+        <div class="about-content">
+            <div class="about-text">
+                <h2 class="section-title">About Aurora</h2>
+                <p class="about-description">
+                    I'm a digital creative passionate about crafting experiences that bridge the gap between technology and human emotion. With over 8 years in the industry, I specialize in creating visual narratives that resonate and inspire.
+                </p>
+                <p class="about-description">
+                    My work spans across digital design, photography, and interactive experiences. I believe in the power of thoughtful design to create meaningful connections and drive positive change.
+                </p>
+
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <h4>Design</h4>
+                        <p>UI/UX, Visual Identity, Art Direction</p>
+                    </div>
+                    <div class="skill-item">
+                        <h4>Development</h4>
+                        <p>Frontend, Interactive Experiences, Prototyping</p>
+                    </div>
+                    <div class="skill-item">
+                        <h4>Photography</h4>
+                        <p>Portrait, Landscape, Commercial</p>
+                    </div>
+                    <div class="skill-item">
+                        <h4>Strategy</h4>
+                        <p>Brand Strategy, Creative Direction</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-image">
+                <%= image_tag "https://picsum.photos/500/600?random=13", alt: "Aurora Creative", loading: "lazy" %>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="contact-section" id="contact">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Let's Connect</h2>
+            <p class="section-subtitle">Ready to create something amazing together?</p>
+        </div>
+
+        <div class="contact-content">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <h4>Email</h4>
+                    <%= link_to "hello@aurora-creative.com", "mailto:hello@aurora-creative.com", class: "contact-link" %>
+                </div>
+                <div class="contact-item">
+                    <h4>Location</h4>
+                    <p>San Francisco, CA</p>
+                </div>
+                <div class="contact-item">
+                    <h4>Availability</h4>
+                    <p>Open for new projects</p>
+                </div>
+            </div>
+
+            <div class="social-links">
+                <%= link_to "#", class: "magnetic-btn", "aria-label": "Twitter" do %>
+                    <span class="magnetic-text">Tw</span>
+                <% end %>
+                <%= link_to "#", class: "magnetic-btn", "aria-label": "GitHub" do %>
+                    <span class="magnetic-text">Gh</span>
+                <% end %>
+                <%= link_to "#", class: "magnetic-btn", "aria-label": "LinkedIn" do %>
+                    <span class="magnetic-text">Li</span>
+                <% end %>
+                <%= link_to "#", class: "magnetic-btn", "aria-label": "Dribbble" do %>
+                    <span class="magnetic-text">Dr</span>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</section>

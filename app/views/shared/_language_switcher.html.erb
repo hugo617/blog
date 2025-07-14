@@ -1,0 +1,67 @@
+<!-- 语言切换器组件 - Language Switcher Component -->
+<!-- 滑动式语言切换界面，支持中英双语 - Sliding language switcher interface supporting Chinese and English -->
+<div class="language-switcher-container" title="<%= t('navigation.language') %>">
+  <div class="language-switcher-wrapper">
+    <!-- 滑动背景 - Sliding background -->
+    <div class="language-switcher-slider <%= 'active-zh' if I18n.locale == :zh %>"></div>
+    
+    <!-- 语言选项 - Language options -->
+    <div class="language-option <%= 'active' if I18n.locale == :en %>" data-locale="en">
+      <%= link_to switch_locale_path(locale: :en), 
+          class: "language-link", 
+          title: "Switch to English",
+          data: { locale: "en" } do %>
+        <span class="language-text">EN</span>
+      <% end %>
+    </div>
+    
+    <div class="language-option <%= 'active' if I18n.locale == :zh %>" data-locale="zh">
+      <%= link_to switch_locale_path(locale: :zh), 
+          class: "language-link", 
+          title: "切换到中文",
+          data: { locale: "zh" } do %>
+        <span class="language-text">中</span>
+      <% end %>
+    </div>
+  </div>
+  
+  <!-- 当前语言指示器 - Current language indicator -->
+  <div class="language-indicator">
+    <span class="current-language">
+      <%= I18n.locale == :zh ? '中文' : 'English' %>
+    </span>
+  </div>
+</div>
+
+<!-- 移动端语言切换器 - Mobile language switcher -->
+<div class="mobile-language-switcher">
+  <div class="mobile-language-dropdown">
+    <button class="mobile-language-trigger" id="mobile-language-trigger">
+      <span class="current-flag">
+        <%= I18n.locale == :zh ? '🇨🇳' : '🇺🇸' %>
+      </span>
+      <span class="current-lang-text">
+        <%= I18n.locale == :zh ? '中文' : 'English' %>
+      </span>
+      <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="m6 9 6 6 6-6"/>
+      </svg>
+    </button>
+    
+    <div class="mobile-language-menu" id="mobile-language-menu">
+      <% if I18n.locale != :en %>
+        <%= link_to switch_locale_path(locale: :en), class: "mobile-language-item" do %>
+          <span class="flag">🇺🇸</span>
+          <span class="lang-text">English</span>
+        <% end %>
+      <% end %>
+      
+      <% if I18n.locale != :zh %>
+        <%= link_to switch_locale_path(locale: :zh), class: "mobile-language-item" do %>
+          <span class="flag">🇨🇳</span>
+          <span class="lang-text">中文</span>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

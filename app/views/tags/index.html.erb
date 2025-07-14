@@ -1,0 +1,32 @@
+<div class="max-w-4xl mx-auto">
+  <h1 class="text-3xl font-bold text-gray-900 mb-8">All Tags</h1>
+
+  <% if @tags.any? %>
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <% @tags.each do |tag| %>
+        <div class="bg-white rounded-lg shadow-sm border p-6">
+          <h2 class="text-xl font-semibold text-gray-900 mb-2">
+            <%= link_to tag.name.titleize, tag_path(tag.slug), class: "hover:text-blue-600" %>
+          </h2>
+          
+          <% if tag.description.present? %>
+            <p class="text-gray-600 mb-3">
+              <%= tag.description %>
+            </p>
+          <% end %>
+          
+          <div class="flex items-center justify-between text-sm text-gray-500">
+            <span><%= pluralize(tag.posts_count, 'post') %></span>
+            <%= link_to "View Posts", tag_path(tag.slug), 
+                        class: "text-blue-600 hover:text-blue-800" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="text-center py-12">
+      <h3 class="text-lg font-medium text-gray-900 mb-2">No tags found</h3>
+      <p class="text-gray-500">Tags will appear here when posts are created with tags.</p>
+    </div>
+  <% end %>
+</div>

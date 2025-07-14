@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reference 1: Full Layout & Silky Sidebar</title>
+    <style>
+        :root {
+            --bg-color: #0d0d0d; --text-color: #e5e5e5; --accent-color: #ffffff;
+            --sidebar-width: 300px; --anim-duration: 0.5s;
+            --anim-easing: cubic-bezier(0.6, 0.05, 0.28, 0.91);
+        }
+        body { margin: 0; background-color: var(--bg-color); color: var(--text-color); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        .page-wrapper { transition: transform var(--anim-duration) var(--anim-easing); }
+        .page-wrapper.sidebar-open { transform: translateX(var(--sidebar-width)) scale(0.95); border-radius: 20px; overflow: hidden; }
+        .header { position: sticky; top: 0; z-index: 10; padding: 1.5rem 2.5rem; display: flex; justify-content: space-between; align-items: center; background: rgba(13, 13, 13, 0.5); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+        .logo { font-weight: 700; font-size: 1.5rem; letter-spacing: -1px; }
+        .hamburger { cursor: pointer; z-index: 100; padding: 10px; }
+        .hamburger-inner, .hamburger-inner::before, .hamburger-inner::after { width: 28px; height: 2px; background-color: var(--text-color); position: absolute; transition: transform 0.3s ease; }
+        .hamburger-inner::before, .hamburger-inner::after { content: ''; }
+        .hamburger-inner::before { top: -8px; }
+        .hamburger-inner::after { top: 8px; }
+        .sidebar-open .hamburger-inner { transform: rotate(45deg); }
+        .sidebar-open .hamburger-inner::before { top: 0; transform: rotate(90deg); }
+        .sidebar-open .hamburger-inner::after { top: 0; transform: rotate(90deg); opacity: 0; }
+        .sidebar { position: fixed; top: 0; left: 0; width: var(--sidebar-width); height: 100%; background-color: #1a1a1a; padding: 6rem 2.5rem; z-index: 20; transform: translateX(-100%); transition: transform var(--anim-duration) var(--anim-easing); }
+        .sidebar.open { transform: translateX(0); }
+        .sidebar-nav a { display: block; color: #a0a0a0; text-decoration: none; font-size: 1.8rem; font-weight: 500; margin-bottom: 2rem; transition: color 0.3s; }
+        .sidebar-nav a:hover { color: var(--accent-color); }
+        .main-content { padding: 2.5rem; min-height: 200vh; background: var(--bg-color); }
+        .main-content h1 { font-size: 4rem; }
+    </style>
+</head>
+<body>
+    <aside class="sidebar" id="sidebar">
+        <nav class="sidebar-nav">
+            <a href="#">Home</a><a href="#">Showcase</a><a href="#">Journal</a><a href="#">Experiments</a><a href="#">About</a>
+        </nav>
+    </aside>
+
+    <div class="page-wrapper" id="page-wrapper">
+        <header class="header">
+            <div class="logo">VOID</div>
+            <div class="hamburger" id="menu-toggle">
+                <div class="hamburger-box">
+                    <div class="hamburger-inner"></div>
+                </div>
+            </div>
+        </header>
+        <main class="main-content">
+            <h1>The Canvas of Creation</h1>
+            <p>Scroll down to see more content...</p>
+        </main>
+    </div>
+
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const sidebar = document.getElementById('sidebar');
+        const pageWrapper = document.getElementById('page-wrapper');
+        const body = document.body;
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            pageWrapper.classList.toggle('sidebar-open');
+            body.classList.toggle('sidebar-open');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reference 4: Magnetic Micro-interactions</title>
+    <style>
+        body { display: grid; place-items: center; min-height: 100vh; background-color: #111; font-family: system-ui; }
+        .footer { padding: 4rem; text-align: center; }
+        .footer-title { color: #aaa; font-size: 1rem; margin-bottom: 2rem; }
+        .socials { display: flex; gap: 1rem; }
+        .magnetic-btn {
+            --size: 70px;
+            width: var(--size); height: var(--size);
+            border: 1px solid #333;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); /* For the return snap */
+        }
+        .magnetic-text {
+            color: white; font-size: 1.2rem;
+            pointer-events: none; /* Text should not interfere with mouse events on parent */
+            transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        /* Simple SVG icon */
+        .icon-arrow { width: 24px; height: 24px; stroke: white; pointer-events: none; transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+    </style>
+</head>
+<body>
+<footer class="footer">
+    <h3 class="footer-title">LET'S CONNECT</h3>
+    <div class="socials">
+        <div class="magnetic-btn">
+            <span class="magnetic-text">Tw</span>
+        </div>
+        <div class="magnetic-btn">
+            <span class="magnetic-text">Gh</span>
+        </div>
+        <div class="magnetic-btn">
+             <svg class="icon-arrow" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+        </div>
+    </div>
+</footer>
+
+<script>
+    document.querySelectorAll('.magnetic-btn').forEach(btn => {
+        const child = btn.children[0];
+        let animationFrameId = null;
+
+        btn.addEventListener('mousemove', (e) => {
+            const rect = btn.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+
+            // Cancel any previous animation frame to avoid conflicts
+            if (animationFrameId) cancelAnimationFrame(animationFrameId);
+
+            animationFrameId = requestAnimationFrame(() => {
+                btn.style.transition = 'none'; // Disable transition during hover for direct mapping
+                child.style.transition = 'none';
+                btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+                child.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+            });
+        });
+
+        btn.addEventListener('mouseleave', () => {
+            // Cancel the animation frame on leave
+            if (animationFrameId) cancelAnimationFrame(animationFrameId);
+            
+            // Re-enable transitions for the snap back animation
+            btn.style.transition = 'transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)';
+            child.style.transition = 'transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)';
+            btn.style.transform = `translate(0, 0)`;
+            child.style.transform = `translate(0, 0)`;
+        });
+    });
+</script>
+</body>
+</html>

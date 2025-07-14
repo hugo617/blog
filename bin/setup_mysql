@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+# =====================================================
+# MySQL Database Setup Script for Blog Application
+# =====================================================
+
+set -e
+
+echo "🚀 Setting up MySQL database for Blog Application..."
+
+# Check if MySQL is running
+if ! command -v mysql &> /dev/null; then
+    echo "❌ MySQL is not installed. Please install MySQL first."
+    exit 1
+fi
+
+# Test MySQL connection
+if ! mysql -u root -e "SELECT 1;" &> /dev/null; then
+    echo "❌ Cannot connect to MySQL as root user without password."
+    echo "Please ensure MySQL is running and root user has no password."
+    echo ""
+    echo "To fix this, run:"
+    echo "mysql -u root -p"
+    echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '';"
+    echo "FLUSH PRIVILEGES;"
+    echo "exit"
+    exit 1
+fi
+
+echo "✅ MySQL connection successful"
+
+# Create databases
+echo "📦 Creating databases..."
+mysql -u root < db/quick_mysql_setup.sql
+
+# Run migrations
+echo "🔄 Running database migrations..."
+bundle exec rails db:migrate
+
+# Load seed data
+echo "🌱 Loading seed data..."
+bundle exec rails db:seed
+
+# Verify setup
+echo "🔍 Verifying database setup..."
+mysql -u root < db/verify_mysql_setup.sql
+
+echo ""
+echo "🎉 MySQL database setup completed successfully!"
+echo ""
+echo "📊 Summary:"
+echo "  - Databases created: blog_application_development, blog_application_test"
+echo "  - Tables migrated: ✅"
+echo "  - Sample data loaded: ✅"
+echo ""
+echo "🚀 You can now start the Rails server with:"
+echo "  rails server"
+echo ""
+echo "🔑 Default login credentials:"
+echo "  Admin: admin@example.com / password123"
+echo "  User 1: john@example.com / password123"
+echo "  User 2: jane@example.com / password123"

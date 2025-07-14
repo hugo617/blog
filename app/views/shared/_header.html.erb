@@ -1,0 +1,50 @@
+<!-- Header component extracted from AURORA design -->
+<!-- This header includes the logo, desktop navigation, and mobile hamburger menu -->
+<header class="header" id="header">
+    <div class="logo">AURORA</div>
+
+    <!-- Desktop Navigation -->
+    <nav class="top-nav" id="top-nav" role="navigation" aria-label="Primary navigation">
+        <%= link_to "#home", class: "nav-link active", data: { page: "home" } do %>
+            <%= t('navigation.home') %>
+        <% end %>
+        <%= link_to posts_path, class: "nav-link", data: { page: "work" } do %>
+            <%= t('navigation.work') %>
+        <% end %>
+        <%= link_to "#journal", class: "nav-link", data: { page: "journal" } do %>
+            <%= t('navigation.journal') %>
+        <% end %>
+        <%= link_to "#about", class: "nav-link", data: { page: "about" } do %>
+            <%= t('navigation.about') %>
+        <% end %>
+        <%= link_to "#contact", class: "nav-link", data: { page: "contact" } do %>
+            <%= t('navigation.contact') %>
+        <% end %>
+
+        <!-- 语言切换器 - Language Switcher -->
+        <%= render 'shared/language_switcher' %>
+
+        <!-- Authentication Links for Desktop -->
+        <% if user_signed_in? %>
+            <%= link_to new_post_path, class: "nav-link", title: t('navigation.new_post') do %>
+                <%= t('navigation.new_post') %>
+            <% end %>
+            <%= link_to destroy_user_session_path, method: :delete, class: "nav-link", title: t('navigation.sign_out') do %>
+                <%= t('navigation.sign_out') %>
+            <% end %>
+        <% else %>
+            <%= link_to new_user_session_path, class: "nav-link" do %>
+                <%= t('navigation.sign_in') %>
+            <% end %>
+            <%= link_to new_user_registration_path, class: "nav-link" do %>
+                <%= t('navigation.sign_up') %>
+            <% end %>
+        <% end %>
+    </nav>
+    
+    <!-- Mobile Menu Toggle -->
+    <!-- The hamburger menu uses CSS animations for smooth transitions -->
+    <button class="hamburger" id="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <div class="hamburger-inner"></div>
+    </button>
+</header>

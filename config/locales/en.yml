@@ -1,0 +1,113 @@
+# English translations for AURORA Blog
+en:
+  # Navigation and Layout
+  navigation:
+    home: "Home"
+    work: "Work"
+    journal: "Journal"
+    about: "About"
+    contact: "Contact"
+    new_post: "New Post"
+    sign_in: "Sign In"
+    sign_up: "Sign Up"
+    sign_out: "Sign Out"
+    profile: "Profile"
+    language: "Language"
+
+  # Hero Section
+  hero:
+    title_part1: "Creating Digital"
+    title_highlight: "Experiences"
+    title_part2: "That Inspire"
+    subtitle: "A creative blog exploring the intersection of design, technology, and human connection through visual storytelling."
+    cta: "Explore My Work"
+
+  # Sections
+  sections:
+    featured_work:
+      title: "Featured Work"
+      subtitle: "A curated collection of my latest creative projects and explorations"
+    journal:
+      title: "Journal"
+      subtitle: "Thoughts, insights, and stories from my creative journey"
+    about:
+      title: "About Aurora"
+      subtitle: "Ready to create something amazing together?"
+    contact:
+      title: "Let's Connect"
+      subtitle: "Ready to create something amazing together?"
+
+  # About Section Content
+  about:
+    description_1: "I'm a digital creative passionate about crafting experiences that bridge the gap between technology and human emotion. With over 8 years in the industry, I specialize in creating visual narratives that resonate and inspire."
+    description_2: "My work spans across digital design, photography, and interactive experiences. I believe in the power of thoughtful design to create meaningful connections and drive positive change."
+    skills:
+      design:
+        title: "Design"
+        description: "UI/UX, Visual Identity, Art Direction"
+      development:
+        title: "Development"
+        description: "Frontend, Interactive Experiences, Prototyping"
+      photography:
+        title: "Photography"
+        description: "Portrait, Landscape, Commercial"
+      strategy:
+        title: "Strategy"
+        description: "Brand Strategy, Creative Direction"
+
+  # Contact Section
+  contact:
+    email: "Email"
+    location: "Location"
+    availability: "Availability"
+    location_text: "San Francisco, CA"
+    availability_text: "Open for new projects"
+
+  # Posts
+  posts:
+    search_placeholder: "Search posts..."
+    search_button: "Search"
+    filter_by_tags: "Filter by Tags"
+    no_posts_found: "No posts found"
+    no_posts_search: "Try adjusting your search terms."
+    no_posts_empty: "Be the first to create a post!"
+    create_post: "Create Post"
+    edit: "Edit"
+    delete: "Delete"
+    confirm_delete: "Are you sure?"
+    reading_time: "min read"
+    views: "views"
+    by_author: "By"
+
+  # Footer
+  footer:
+    brand_description: "Creating digital experiences that inspire and connect."
+    navigation_title: "Navigation"
+    connect_title: "Connect"
+    copyright: "Aurora Creative. All rights reserved."
+    made_with_love: "Designed and developed with ❤️"
+
+  # Common
+  common:
+    loading: "Loading..."
+    error: "Error"
+    success: "Success"
+    cancel: "Cancel"
+    save: "Save"
+    back: "Back"
+    next: "Next"
+    previous: "Previous"
+
+  # Time and Date
+  time:
+    formats:
+      default: "%B %d, %Y"
+      short: "%b %d"
+      long: "%A, %B %d, %Y"
+
+  # Flash Messages
+  flash:
+    success: "Operation completed successfully!"
+    error: "An error occurred. Please try again."
+    notice: "Notice"
+    alert: "Alert"

@@ -1,0 +1,50 @@
+<div class="border rounded-lg p-4 mb-4 <%= approval_status_class %>">
+  <div class="flex items-start space-x-3">
+    <div class="<%= user_presenter.avatar_placeholder_class %>">
+      <%= user_presenter.initials %>
+    </div>
+    
+    <div class="flex-1">
+      <div class="flex items-center space-x-2 mb-2">
+        <h4 class="font-medium text-gray-900"><%= user_presenter.display_name %></h4>
+        <span class="text-sm text-gray-500"><%= formatted_date %></span>
+        
+        <% unless comment.approved? %>
+          <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+            Pending Approval
+          </span>
+        <% end %>
+      </div>
+      
+      <div class="text-gray-700 mb-3">
+        <%= simple_format(comment.body) %>
+      </div>
+      
+      <div class="flex items-center space-x-4 text-sm">
+        <% if can_edit? %>
+          <%= link_to "Edit", edit_post_comment_path(comment.post, comment), 
+                      class: "text-blue-600 hover:text-blue-800" %>
+        <% end %>
+        
+        <% if can_delete? %>
+          <%= link_to "Delete", post_comment_path(comment.post, comment), 
+                      method: :delete,
+                      data: { confirm: "Are you sure?" },
+                      class: "text-red-600 hover:text-red-800" %>
+        <% end %>
+        
+        <% if can_moderate? %>
+          <% unless comment.approved? %>
+            <%= link_to "Approve", approve_post_comment_path(comment.post, comment), 
+                        method: :patch,
+                        class: "text-green-600 hover:text-green-800" %>
+          <% end %>
+          
+          <%= link_to "Reject", reject_post_comment_path(comment.post, comment), 
+                      method: :patch,
+                      class: "text-red-600 hover:text-red-800" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

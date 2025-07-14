@@ -1,0 +1,113 @@
+# 中文翻译 - AURORA 博客
+zh:
+  # 导航和布局
+  navigation:
+    home: "首页"
+    work: "作品"
+    journal: "日志"
+    about: "关于"
+    contact: "联系"
+    new_post: "新建文章"
+    sign_in: "登录"
+    sign_up: "注册"
+    sign_out: "退出"
+    profile: "个人资料"
+    language: "语言"
+
+  # 主页横幅
+  hero:
+    title_part1: "创造数字化"
+    title_highlight: "体验"
+    title_part2: "激发灵感"
+    subtitle: "一个探索设计、技术与人文连接交汇点的创意博客，通过视觉叙事传达理念。"
+    cta: "探索我的作品"
+
+  # 各个部分
+  sections:
+    featured_work:
+      title: "精选作品"
+      subtitle: "我最新创意项目和探索的精选集合"
+    journal:
+      title: "创作日志"
+      subtitle: "来自我创意旅程的思考、见解和故事"
+    about:
+      title: "关于 Aurora"
+      subtitle: "准备一起创造令人惊叹的作品吗？"
+    contact:
+      title: "让我们连接"
+      subtitle: "准备一起创造令人惊叹的作品吗？"
+
+  # 关于部分内容
+  about:
+    description_1: "我是一名数字创意工作者，热衷于打造连接技术与人类情感的体验。在这个行业有超过8年的经验，我专注于创造能够引起共鸣和启发的视觉叙事。"
+    description_2: "我的工作涵盖数字设计、摄影和交互体验。我相信深思熟虑的设计能够创造有意义的连接并推动积极的改变。"
+    skills:
+      design:
+        title: "设计"
+        description: "UI/UX、视觉识别、艺术指导"
+      development:
+        title: "开发"
+        description: "前端、交互体验、原型设计"
+      photography:
+        title: "摄影"
+        description: "人像、风景、商业摄影"
+      strategy:
+        title: "策略"
+        description: "品牌策略、创意指导"
+
+  # 联系部分
+  contact:
+    email: "邮箱"
+    location: "位置"
+    availability: "可用性"
+    location_text: "加利福尼亚州，旧金山"
+    availability_text: "接受新项目"
+
+  # 文章
+  posts:
+    search_placeholder: "搜索文章..."
+    search_button: "搜索"
+    filter_by_tags: "按标签筛选"
+    no_posts_found: "未找到文章"
+    no_posts_search: "请尝试调整搜索条件。"
+    no_posts_empty: "成为第一个创建文章的人！"
+    create_post: "创建文章"
+    edit: "编辑"
+    delete: "删除"
+    confirm_delete: "您确定吗？"
+    reading_time: "分钟阅读"
+    views: "浏览"
+    by_author: "作者"
+
+  # 页脚
+  footer:
+    brand_description: "创造激发灵感和连接的数字体验。"
+    navigation_title: "导航"
+    connect_title: "连接"
+    copyright: "Aurora Creative. 保留所有权利。"
+    made_with_love: "用 ❤️ 设计和开发"
+
+  # 通用
+  common:
+    loading: "加载中..."
+    error: "错误"
+    success: "成功"
+    cancel: "取消"
+    save: "保存"
+    back: "返回"
+    next: "下一页"
+    previous: "上一页"
+
+  # 时间和日期
+  time:
+    formats:
+      default: "%Y年%m月%d日"
+      short: "%m月%d日"
+      long: "%Y年%m月%d日 %A"
+
+  # 提示消息
+  flash:
+    success: "操作成功完成！"
+    error: "发生错误，请重试。"
+    notice: "通知"
+    alert: "警告"

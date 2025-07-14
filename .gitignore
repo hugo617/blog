@@ -1,0 +1,148 @@
+# Rails 项目 .gitignore 文件 - Rails project .gitignore file
+
+# 依赖文件 - Dependencies
+/vendor/bundle/
+/node_modules/
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
+
+# Rails 特定文件 - Rails specific files
+*.rbc
+capybara-*.html
+.rspec
+/db/*.sqlite3
+/db/*.sqlite3-journal
+/db/*.sqlite3-*
+/public/system
+/coverage/
+/spec/tmp
+*.orig
+rerun.txt
+pickle-email-*.html
+
+# Rails 缓存和日志 - Rails cache and logs
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+/tmp/pids/*
+!/tmp/pids/
+!/tmp/pids/.keep
+
+# 上传文件 - Uploaded files
+/storage/*
+!/storage/.keep
+/tmp/storage/*
+!/tmp/storage/
+!/tmp/storage/.keep
+
+# 公共上传文件 - Public uploads
+/public/uploads
+
+# 预编译资源 - Precompiled assets
+/public/assets
+/public/packs
+/public/packs-test
+/app/assets/builds/*
+!/app/assets/builds/.keep
+
+# 环境变量 - Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 密钥文件 - Secret files
+/config/master.key
+/config/credentials/*.key
+
+# IDE 和编辑器文件 - IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 操作系统文件 - OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Ruby 版本管理 - Ruby version management
+.ruby-version
+.ruby-gemset
+
+# Bundler 配置 - Bundler configuration
+/.bundle
+/vendor/bundle
+
+# Spring 加速器 - Spring accelerator
+/spring/*.pid
+
+# 测试覆盖率 - Test coverage
+/coverage
+
+# SimpleCov 覆盖率报告 - SimpleCov coverage reports
+coverage/
+
+# RSpec 失败跟踪 - RSpec failure tracking
+spec/examples.txt
+
+# Yarn 完整性文件 - Yarn integrity file
+.yarn-integrity
+
+# dotenv 环境变量文件 - dotenv environment variables file
+.env
+
+# 忽略所有日志文件但保留目录 - Ignore all logfiles but keep the directory
+/log/*.log
+
+# 忽略 pidfiles，但保留目录 - Ignore pidfiles, but keep the directory
+/tmp/pids/*.pid
+
+# 忽略存储文件 - Ignore storage files
+/storage
+
+# 忽略 node_modules - Ignore node_modules
+node_modules/
+
+# 忽略 yarn 错误日志 - Ignore yarn error logs
+yarn-error.log
+
+# 忽略 .byebug_history - Ignore .byebug_history
+.byebug_history
+
+# 忽略 .sass-cache - Ignore .sass-cache
+.sass-cache/
+
+# 忽略 Capistrano 锁文件 - Ignore Capistrano lock file
+/config/deploy.rb.lock
+
+# 忽略 pow 环境设置 - Ignore pow environment settings
+.powenv
+
+# 忽略 RVM 文件 - Ignore RVM files
+.rvmrc
+
+# 忽略 rbenv 文件 - Ignore rbenv files
+.rbenv-version
+
+# 忽略 database.yml（如果包含敏感信息）- Ignore database.yml if it contains sensitive info
+# /config/database.yml
+
+# 忽略 secrets.yml - Ignore secrets.yml
+# /config/secrets.yml
+
+# 本地开发数据库 - Local development database
+*.sqlite3
+*.sqlite3-journal
+
+# 临时文件 - Temporary files
+*.tmp
+*.temp

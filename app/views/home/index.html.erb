@@ -1,0 +1,174 @@
+<!-- Hero Section -->
+<!-- This hero section creates the main visual impact with gradient text and call-to-action -->
+<section class="hero" id="home">
+    <div class="hero-content">
+        <h1 class="hero-title">
+            <%= t('hero.title_part1') %>
+            <span class="gradient-text"><%= t('hero.title_highlight') %></span>
+            <%= t('hero.title_part2') %>
+        </h1>
+        <p class="hero-subtitle">
+            <%= t('hero.subtitle') %>
+        </p>
+        <%= link_to posts_path, class: "hero-cta" do %>
+            <%= t('hero.cta') %>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m9 18 6-6-6-6"/>
+            </svg>
+        <% end %>
+    </div>
+</section>
+
+<!-- Featured Work Section -->
+<!-- This section displays the featured blog posts in a Pinterest-style masonry grid -->
+<% if @featured_posts.any? %>
+<section class="featured-work" id="work">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title"><%= t('sections.featured_work.title') %></h2>
+            <p class="section-subtitle"><%= t('sections.featured_work.subtitle') %></p>
+        </div>
+
+        <!-- Masonry Grid for Featured Posts -->
+        <div class="masonry-grid" id="masonry-grid">
+            <% @featured_posts.each_with_index do |post, index| %>
+                <div class="masonry-item" style="transition-delay: <%= index * 100 %>ms">
+                    <%= render 'posts/post_card', post: post %>
+                </div>
+            <% end %>
+        </div>
+
+        <!-- View All Posts Button -->
+        <div style="text-align: center; margin-top: var(--space-12);">
+            <%= link_to posts_path, class: "hero-cta" do %>
+                <%= t('navigation.work') %>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m9 18 6-6-6-6"/>
+                </svg>
+            <% end %>
+        </div>
+    </div>
+</section>
+<% end %>
+
+<!-- Journal Section -->
+<!-- This section shows recent blog posts in a different layout style -->
+<% if @recent_posts.any? %>
+<section class="journal-section" id="journal">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title"><%= t('sections.journal.title') %></h2>
+            <p class="section-subtitle"><%= t('sections.journal.subtitle') %></p>
+        </div>
+
+        <div class="journal-grid">
+            <% @recent_posts.limit(3).each_with_index do |post, index| %>
+                <article class="journal-card <%= 'featured' if index == 0 %>">
+                    <div class="journal-image">
+                        <%= image_tag post.image_url, alt: post.title, loading: "lazy" %>
+                    </div>
+                    <div class="journal-content">
+                        <span class="journal-category"><%= post.primary_tag %></span>
+                        <h3 class="journal-title">
+                            <%= link_to post.title, post, style: "color: inherit; text-decoration: none;" %>
+                        </h3>
+                        <% if post.excerpt.present? %>
+                            <p class="journal-excerpt"><%= truncate(post.excerpt, length: 120) %></p>
+                        <% else %>
+                            <p class="journal-excerpt"><%= post.content_preview(20) %></p>
+                        <% end %>
+                        <div class="journal-meta">
+                            <time datetime="<%= post.published_at&.iso8601 || post.created_at.iso8601 %>">
+                                <%= l((post.published_at || post.created_at), format: :default) %>
+                            </time>
+                            <span class="read-time"><%= post.reading_time %> <%= t('posts.reading_time') %></span>
+                        </div>
+                    </div>
+                </article>
+            <% end %>
+        </div>
+    </div>
+</section>
+<% end %>
+
+<!-- About Section -->
+<section class="about-section" id="about">
+    <div class="container">
+        <div class="about-content">
+            <div class="about-text">
+                <h2 class="section-title"><%= t('sections.about.title') %></h2>
+                <p class="about-description">
+                    <%= t('about.description_1') %>
+                </p>
+                <p class="about-description">
+                    <%= t('about.description_2') %>
+                </p>
+
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <h4><%= t('about.skills.design.title') %></h4>
+                        <p><%= t('about.skills.design.description') %></p>
+                    </div>
+                    <div class="skill-item">
+                        <h4><%= t('about.skills.development.title') %></h4>
+                        <p><%= t('about.skills.development.description') %></p>
+                    </div>
+                    <div class="skill-item">
+                        <h4><%= t('about.skills.photography.title') %></h4>
+                        <p><%= t('about.skills.photography.description') %></p>
+                    </div>
+                    <div class="skill-item">
+                        <h4><%= t('about.skills.strategy.title') %></h4>
+                        <p><%= t('about.skills.strategy.description') %></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-image">
+                <%= image_tag "https://picsum.photos/500/600?random=13", alt: "Aurora Creative", loading: "lazy" %>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="contact-section" id="contact">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title"><%= t('sections.contact.title') %></h2>
+            <p class="section-subtitle"><%= t('sections.contact.subtitle') %></p>
+        </div>
+
+        <div class="contact-content">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <h4><%= t('contact.email') %></h4>
+                    <%= link_to "hello@aurora-creative.com", "mailto:hello@aurora-creative.com", class: "contact-link" %>
+                </div>
+                <div class="contact-item">
+                    <h4><%= t('contact.location') %></h4>
+                    <p><%= t('contact.location_text') %></p>
+                </div>
+                <div class="contact-item">
+                    <h4><%= t('contact.availability') %></h4>
+                    <p><%= t('contact.availability_text') %></p>
+                </div>
+            </div>
+
+            <div class="social-links">
+                <%= link_to "#", class: "magnetic-btn", "aria-label": "Twitter" do %>
+                    <span class="magnetic-text">Tw</span>
+                <% end %>
+                <%= link_to "#", class: "magnetic-btn", "aria-label": "GitHub" do %>
+                    <span class="magnetic-text">Gh</span>
+                <% end %>
+                <%= link_to "#", class: "magnetic-btn", "aria-label": "LinkedIn" do %>
+                    <span class="magnetic-text">Li</span>
+                <% end %>
+                <%= link_to "#", class: "magnetic-btn", "aria-label": "Dribbble" do %>
+                    <span class="magnetic-text">Dr</span>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</section>

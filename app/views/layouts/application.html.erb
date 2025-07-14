@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURORA - Hugo Blog </title>
+    <meta name="description" content="A creative blog showcasing design, photography, and digital art with stunning visual experiences.">
+    <meta name="keywords" content="blog, design, photography, creative, portfolio, art">
+    <meta name="author" content="Aurora Creative">
+
+    <!-- Rails CSRF and CSP meta tags -->
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="<%= request.original_url %>">
+    <meta property="og:title" content="AURORA - Hugo Blog ">
+    <meta property="og:description" content="A creative blog showcasing design, photography, and digital art with stunning visual experiences.">
+    <meta property="og:image" content="https://picsum.photos/1200/630?random=aurora">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="<%= request.original_url %>">
+    <meta property="twitter:title" content="AURORA - Hugo Blog ">
+    <meta property="twitter:description" content="A creative blog showcasing design, photography, and digital art with stunning visual experiences.">
+    <meta property="twitter:image" content="https://picsum.photos/1200/630?random=aurora">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Rails asset pipeline -->
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "name": "AURORA Creative Blog",
+        "description": "A creative blog showcasing design, photography, and digital art",
+        "url": "<%= request.base_url %>",
+        "author": {
+            "@type": "Person",
+            "name": "Aurora Creative"
+        }
+    }
+    </script>
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <%= render 'shared/sidebar' %>
+
+    <!-- Main Page Wrapper -->
+    <div class="page-wrapper" id="page-wrapper">
+        <!-- Header -->
+        <%= render 'shared/header' %>
+
+        <!-- Flash Messages -->
+        <% if notice %>
+            <div class="flash-message flash-notice" role="alert">
+                <%= notice %>
+            </div>
+        <% end %>
+
+        <% if alert %>
+            <div class="flash-message flash-alert" role="alert">
+                <%= alert %>
+            </div>
+        <% end %>
+
+        <!-- Main Content -->
+        <main class="main-content" role="main">
+            <%= yield %>
+        </main>
+
+        <!-- Footer -->
+        <%= render 'shared/footer' %>
+    </div>
+</body>
+</html>
