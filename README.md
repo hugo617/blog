@@ -1,10 +1,29 @@
-# Blog Application
+# 🌟 AURORA Blog - 现代化多语言博客系统
 
-A modern blog application built with Ruby on Rails 7, featuring a clean architecture with service objects, presenters, and ViewComponents.
+一个基于 Rails 7 构建的现代化博客应用，具有完整的国际化支持和精美的 AURORA 设计系统。
 
-## Features
+![AURORA Blog](https://img.shields.io/badge/Rails-7.2.2.1-red?style=for-the-badge&logo=rubyonrails)
+![Ruby](https://img.shields.io/badge/Ruby-3.1.0-red?style=for-the-badge&logo=ruby)
+![MySQL](https://img.shields.io/badge/MySQL-8.0-blue?style=for-the-badge&logo=mysql)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
-- **User Authentication**: Powered by Devise
+## ✨ 主要特性
+
+### 🌐 完整的国际化支持
+- **中英双语界面**：完整的中文和英文翻译
+- **智能语言检测**：自动检测浏览器语言偏好
+- **美观的语言切换器**：桌面端滑动切换 + 移动端下拉菜单
+- **本地化日期格式**：符合不同语言习惯的日期显示
+- **会话持久化**：语言选择在会话中保持
+
+### 🎨 AURORA 设计系统
+- **现代化界面**：简洁优雅的设计风格
+- **3D 卡片效果**：鼠标悬停时的立体倾斜动画
+- **磁性按钮**：跟随鼠标的磁性交互效果
+- **平滑动画**：页面过渡和微交互动画
+- **响应式设计**：完美适配桌面、平板和移动设备
+
+### 📝 博客功能
 - **Rich Text Editing**: Action Text for blog post content
 - **Tagging System**: Flexible tagging with friendly URLs
 - **Comment System**: Moderated comments with approval workflow
