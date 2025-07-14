@@ -7,7 +7,7 @@ class CreateBookmarks < ActiveRecord::Migration[7.0]
       t.string :url, null: false
       t.string :image_url
       t.string :category, null: false
-      t.text :tags, array: true, default: []
+      t.text :tags # JSON string for SQLite compatibility
       t.boolean :featured, default: false
       t.boolean :published, default: true
       t.integer :views_count, default: 0
@@ -22,6 +22,6 @@ class CreateBookmarks < ActiveRecord::Migration[7.0]
     add_index :bookmarks, :featured
     add_index :bookmarks, :published
     add_index :bookmarks, :published_at
-    add_index :bookmarks, :tags, using: 'gin'
+    # Note: SQLite doesn't support GIN indexes, tags will be stored as JSON text
   end
 end

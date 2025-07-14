@@ -119,7 +119,7 @@ bookmarks_data.each do |bookmark_attrs|
     b.title = bookmark_attrs[:title]
     b.description = bookmark_attrs[:description]
     b.category = bookmark_attrs[:category]
-    b.tags = bookmark_attrs[:tags]
+    b.tags = bookmark_attrs[:tags].to_json # Convert to JSON string for SQLite
     b.featured = bookmark_attrs[:featured]
     b.image_url = bookmark_attrs[:image_url]
     b.published = true
@@ -127,7 +127,7 @@ bookmarks_data.each do |bookmark_attrs|
     b.views_count = rand(100..5000)
     b.likes_count = rand(10..500)
   end
-  
+
   puts "Created bookmark: #{bookmark.title}"
 end
 

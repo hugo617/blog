@@ -9,8 +9,22 @@ class Bookmark < ApplicationRecord
   validates :description, length: { maximum: 500 }
   validates :category, presence: true
   
-  # 标签处理 - Tag handling
+  # 标签处理 - Tag handling (JSON for SQLite compatibility)
   serialize :tags, Array
+
+  # 确保标签始终是数组 - Ensure tags is always an array
+  before_save :ensure_tags_is_array
+
+  private
+
+  def ensure_tags_is_array
+    self.tags = [] if tags.nil?
+    self.tags = [tags] if tags.is_a?(String) && !tags.empty?
+    self.tags = tags.compact.uniq if tags.is_a?(Array)
+    self.tags = [] if tags.blank?
+  end
+
+  public
   
   # 作用域 - Scopes
   scope :featured, -> { where(featured: true) }
@@ -18,12 +32,13 @@ class Bookmark < ApplicationRecord
   scope :published, -> { where(published: true) }
   scope :recent, -> { order(created_at: :desc) }
   
-  # 搜索功能 - Search functionality
+  # 搜索功能 - Search functionality (SQLite compatible)
   scope :search, ->(query) {
     return all if query.blank?
-    
+
+    # SQLite compatible search
     where(
-      "title ILIKE ? OR description ILIKE ? OR tags::text ILIKE ? OR category ILIKE ?",
+      "title LIKE ? OR description LIKE ? OR tags LIKE ? OR category LIKE ?",
       "%#{query}%", "%#{query}%", "%#{query}%", "%#{query}%"
     )
   }
